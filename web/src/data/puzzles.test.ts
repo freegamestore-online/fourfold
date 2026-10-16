@@ -17,9 +17,9 @@ function wordsOf(puzzle: Puzzle): string[] {
 }
 
 describe("content batch 1", () => {
-  it("has exactly 60 puzzles, numbered 1 to 60", () => {
-    expect(puzzles).toHaveLength(60);
-    expect(puzzles.map((p) => p.id)).toEqual(Array.from({ length: 60 }, (_, i) => i + 1));
+  it("has exactly 120 puzzles, numbered 1 to 120", () => {
+    expect(puzzles).toHaveLength(120);
+    expect(puzzles.map((p) => p.id)).toEqual(Array.from({ length: 120 }, (_, i) => i + 1));
   });
 
   it("loads the offensive blocklist", () => {
@@ -65,7 +65,7 @@ describe("content batch 1", () => {
     });
   });
 
-  it("has no two puzzles with the same set of sixteen words", () => {
+  it("has no two puzzles with the same set of sixteen words, across all batches", () => {
     const seen = new Map<string, number>();
     for (const puzzle of puzzles) {
       const key = wordsOf(puzzle).sort().join(",");
