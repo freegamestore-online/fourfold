@@ -65,6 +65,28 @@ describe("content batch 1", () => {
     });
   });
 
+  // #347: batch 1 was revised to the harder bar. Batch 2 follows the same guidance under
+  // #344 and is not yet covered by these two rules.
+  const REVISED_THROUGH = 60;
+  describe.each(puzzles.filter((p) => p.id <= REVISED_THROUGH).map((puzzle) => [puzzle.id, puzzle] as const))(
+    "revised puzzle %i",
+    (_id, puzzle) => {
+      it("has a wordplay group at difficulty 3 or harder", () => {
+        const hard = puzzle.groups.filter((group) => group.kind === "wordplay" && group.difficulty >= 3);
+        expect(hard.length).toBeGreaterThanOrEqual(1);
+      });
+
+      it("has at least two cross-group decoys, each in exactly one group", () => {
+        const decoys = puzzle.decoys ?? [];
+        expect(new Set(decoys).size).toBeGreaterThanOrEqual(2);
+        for (const decoy of decoys) {
+          const homes = puzzle.groups.filter((group) => group.words.includes(decoy));
+          expect(homes, `${decoy} must sit in exactly one group`).toHaveLength(1);
+        }
+      });
+    },
+  );
+
   it("has no two puzzles with the same set of sixteen words, across all batches", () => {
     const seen = new Map<string, number>();
     for (const puzzle of puzzles) {
