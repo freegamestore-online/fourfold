@@ -65,27 +65,30 @@ describe("content batch 1", () => {
     });
   });
 
-  // #347: batch 1 was revised to the harder bar. Batch 2 follows the same guidance under
-  // #344 and is not yet covered by these two rules.
-  const REVISED_THROUGH = 60;
-  describe.each(puzzles.filter((p) => p.id <= REVISED_THROUGH).map((puzzle) => [puzzle.id, puzzle] as const))(
-    "revised puzzle %i",
-    (_id, puzzle) => {
-      it("has a wordplay group at difficulty 3 or harder", () => {
-        const hard = puzzle.groups.filter((group) => group.kind === "wordplay" && group.difficulty >= 3);
-        expect(hard.length).toBeGreaterThanOrEqual(1);
-      });
+  it("tags every group as category or wordplay", () => {
+    for (const puzzle of puzzles) {
+      for (const group of puzzle.groups) {
+        expect(group.kind, `puzzle ${puzzle.id}: ${group.label}`).toBeDefined();
+      }
+    }
+  });
 
-      it("has at least two cross-group decoys, each in exactly one group", () => {
-        const decoys = puzzle.decoys ?? [];
-        expect(new Set(decoys).size).toBeGreaterThanOrEqual(2);
-        for (const decoy of decoys) {
-          const homes = puzzle.groups.filter((group) => group.words.includes(decoy));
-          expect(homes, `${decoy} must sit in exactly one group`).toHaveLength(1);
-        }
-      });
-    },
-  );
+  describe.each(puzzles.map((puzzle) => [puzzle.id, puzzle] as const))("wordplay rules for puzzle %i", (_id, puzzle) => {
+    it("makes every difficulty 3 and 4 group a wordplay group", () => {
+      for (const group of puzzle.groups) {
+        if (group.difficulty >= 3) expect(group.kind, group.label).toBe("wordplay");
+      }
+    });
+
+    it("has at least two cross-group decoys, each in exactly one group", () => {
+      const decoys = puzzle.decoys ?? [];
+      expect(new Set(decoys).size).toBeGreaterThanOrEqual(2);
+      for (const decoy of decoys) {
+        const homes = puzzle.groups.filter((group) => group.words.includes(decoy));
+        expect(homes, `${decoy} must sit in exactly one group`).toHaveLength(1);
+      }
+    });
+  });
 
   it("has no two puzzles with the same set of sixteen words, across all batches", () => {
     const seen = new Map<string, number>();
