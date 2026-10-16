@@ -80,3 +80,210 @@ body {
   height: 100%;
   overflow: hidden;
 }
+
+/* Difficulty levels. Colour-blind-safe: each level pairs a hue with a glyph, and the
+   hues are the Okabe-Ito set (yellow, bluish green, blue, purple). */
+:root {
+  --level-0: #f0e442;
+  --level-0-ink: #1a1a1a;
+  --level-1: #009e73;
+  --level-1-ink: #ffffff;
+  --level-2: #0072b2;
+  --level-2-ink: #ffffff;
+  --level-3: #7b2d8e;
+  --level-3-ink: #ffffff;
+}
+
+/* Board: fills the screen, no scroll. Tiles share whatever height is left. */
+.board {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  max-width: 520px;
+  height: 100%;
+  margin: 0 auto;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.solved-groups {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  text-align: left;
+}
+
+.group-icon {
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.group-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  font-size: clamp(0.7rem, 2.2vw, 0.9rem);
+}
+
+.group-text strong {
+  font-family: "Fraunces", serif;
+  font-size: clamp(0.85rem, 2.6vw, 1.05rem);
+}
+
+.level-0 { background: var(--level-0); color: var(--level-0-ink); }
+.level-1 { background: var(--level-1); color: var(--level-1-ink); }
+.level-2 { background: var(--level-2); color: var(--level-2-ink); }
+.level-3 { background: var(--level-3); color: var(--level-3-ink); }
+
+.tile-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-auto-rows: minmax(0, 1fr);
+  gap: 6px;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.tile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  min-height: 44px;
+  padding: 4px;
+  border: 2px solid var(--line-strong);
+  border-radius: 10px;
+  background: var(--panel);
+  color: var(--ink);
+  font-family: "Manrope", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: clamp(0.75rem, 2.5vw, 1.1rem);
+  letter-spacing: 0.02em;
+  text-align: center;
+  overflow-wrap: anywhere;
+  cursor: pointer;
+  transition: background-color 120ms ease, transform 120ms ease;
+}
+
+.tile:active {
+  transform: scale(0.97);
+}
+
+/* Selected tiles invert, so the state reads without colour. */
+.tile.selected {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--paper);
+}
+
+.board-status {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 28px;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.mistakes {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.toast {
+  margin: 0;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--paper);
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.toast-animated {
+  animation: toast-in 180ms ease-out;
+}
+
+@keyframes toast-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.board-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+}
+
+.board-end {
+  margin: 0;
+  text-align: center;
+  font-weight: 700;
+}
+
+/* Celebration (feel/Celebration.tsx) */
+.celebration {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.celebrate-banner {
+  position: relative;
+  margin: 0;
+  padding: 8px 18px;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: "Fraunces", serif;
+  font-weight: 800;
+  font-size: 1.4rem;
+}
+
+.confetti-piece {
+  position: absolute;
+  top: -12px;
+  width: 8px;
+  height: 14px;
+  border-radius: 2px;
+  background: var(--accent);
+  animation-name: confetti-fall;
+  animation-timing-function: ease-in;
+  animation-fill-mode: forwards;
+}
+
+.confetti-piece:nth-child(3n) { background: var(--level-0); }
+.confetti-piece:nth-child(3n + 1) { background: var(--level-1); }
+.confetti-piece:nth-child(3n + 2) { background: var(--level-3); }
+
+@keyframes confetti-fall {
+  from { transform: translate3d(0, 0, 0) rotate(0deg); opacity: 1; }
+  to { transform: translate3d(var(--dx), 110vh, 0) rotate(var(--rot)); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tile,
+  .tile:active {
+    transition: none;
+    transform: none;
+  }
+
+  .toast-animated {
+    animation: none;
+  }
+}

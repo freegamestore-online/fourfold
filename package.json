@@ -2,13 +2,20 @@
   "name": "fourfold",
   "private": true,
   "packageManager": "pnpm@10.30.3",
-  "engines": { "node": ">=22" },
-  "pnpm": { "onlyBuiltDependencies": ["esbuild"] },
+  "engines": {
+    "node": ">=22"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
+  },
   "scripts": {
     "dev": "pnpm --filter @fourfold/web dev",
     "build": "pnpm --filter @fourfold/web build",
     "preview": "pnpm --filter @fourfold/web preview",
     "typecheck": "pnpm --filter @fourfold/web exec tsc -b",
-    "test": "pnpm --filter @fourfold/web test"
+    "test": "pnpm --filter @fourfold/web test",
+    "lint": "pnpm --filter @fourfold/web lint"
   }
 }
