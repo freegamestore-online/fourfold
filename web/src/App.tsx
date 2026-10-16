@@ -1,22 +1,35 @@
-import { GameAuth, GameTopbar } from "@freegamestore/games";
+import { useState } from "react";
+import { GameAuth, GameButton, GameTopbar } from "@freegamestore/games";
 import GameShell from "./GameShell";
-import { Board } from "./Board";
-import type { PuzzleDef } from "./engine/grouping";
+import { Archive, DailyScreen, utcDate } from "./daily";
 
-// Development sample only. Real puzzle loading is a later ticket.
-const SAMPLE_PUZZLE: PuzzleDef = {
-  groups: [
-    { label: "Pastries", words: ["BAGEL", "DANISH", "MUFFIN", "SCONE"], level: 0, icon: "◆" },
-    { label: "Woodwinds", words: ["OBOE", "FLUTE", "CLARINET", "BASSOON"], level: 1, icon: "▲" },
-    { label: "Planets", words: ["MARS", "VENUS", "SATURN", "MERCURY"], level: 2, icon: "●" },
-    { label: "Dogs", words: ["BEAGLE", "POODLE", "BOXER", "HUSKY"], level: 3, icon: "■" },
-  ],
-};
+type View = { kind: "daily"; date: string } | { kind: "archive" };
 
 export default function App() {
+  const [today] = useState(() => utcDate());
+  const [view, setView] = useState<View>({ kind: "daily", date: today });
+
   return (
-    <GameShell topbar={<GameTopbar title="Fourfold" actions={<GameAuth />} />}>
-      <Board puzzle={SAMPLE_PUZZLE} />
+    <GameShell
+      topbar={
+        <GameTopbar
+          title="Fourfold"
+          actions={
+            <>
+              <GameButton size="sm" variant="ghost" onClick={() => setView({ kind: "archive" })}>
+                Archive
+              </GameButton>
+              <GameAuth />
+            </>
+          }
+        />
+      }
+    >
+      {view.kind === "archive" ? (
+        <Archive today={today} onPlay={(date) => setView({ kind: "daily", date })} onExit={() => setView({ kind: "daily", date: today })} />
+      ) : (
+        <DailyScreen key={view.date} date={view.date} today={today} onArchive={() => setView({ kind: "archive" })} />
+      )}
     </GameShell>
   );
 }

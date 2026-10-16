@@ -3,6 +3,7 @@ import { GameButton } from "@freegamestore/games";
 import { Celebration } from "./feel/Celebration";
 import { useShake } from "./feel";
 import { prefersReducedMotion } from "./motion/reducedMotion";
+import { formatDuration } from "./lib/format";
 import {
   GROUP_SIZE,
   MAX_MISTAKES,
@@ -11,27 +12,45 @@ import {
   shuffle,
   submit,
   toggleTile,
-  type GameState,
   type PuzzleDef,
   type Random,
   type SolvedGroup,
 } from "./engine/grouping";
+import { type GuessRecord, type Replay, replayGuesses } from "./engine/replay";
 
 const ONE_AWAY_MS = 1600;
 
-interface BoardProps {
-  puzzle: PuzzleDef;
-  /** Seeds the opening shuffle and reshuffles. Tests pass a fixed one. */
-  random?: Random;
+export interface FinishOutcome {
+  won: boolean;
+  mistakes: number;
+  seconds: number;
+  guesses: string[][];
+  history: GuessRecord[];
 }
 
-export function Board({ puzzle, random = Math.random }: BoardProps) {
-  const [game, setGame] = useState<GameState>(() => createGame(puzzle, random));
+export interface BoardProps {
+  puzzle: PuzzleDef;
+  /** Seeds the opening deck. Shuffles are always random. */
+  random?: Random;
+  /** Guesses already made, replayed on mount to restore a saved run. */
+  guesses?: string[][];
+  /** When the run started, in ms since the epoch. Defaults to mount time. */
+  startedAt?: number;
+  onProgress?: (guesses: string[][]) => void;
+  onFinish?: (outcome: FinishOutcome) => void;
+}
+
+export function Board({ puzzle, random = Math.random, guesses = [], startedAt, onProgress, onFinish }: BoardProps) {
+  const [run, setRun] = useState<Replay>(() => replayGuesses(createGame(puzzle, random), guesses));
+  const [start] = useState(() => startedAt ?? Date.now());
+  const [now, setNow] = useState(() => Date.now());
   // Bumped on each wrong guess, so the selected tiles shake once per guess.
   const [shakeToken, setShakeToken] = useState(0);
   const [toast, setToast] = useState<{ id: number } | null>(null);
   const [celebrating, setCelebrating] = useState(false);
   const reduced = prefersReducedMotion();
+  const { game, history } = run;
+  const playing = game.status === "playing";
 
   // Hide the one-away toast after a moment. A new toast object restarts the timer.
   useEffect(() => {
@@ -40,19 +59,42 @@ export function Board({ puzzle, random = Math.random }: BoardProps) {
     return () => window.clearTimeout(timer);
   }, [toast]);
 
+  // Tick the timer once a second while the run is live.
+  useEffect(() => {
+    if (!playing) return;
+    const timer = window.setInterval(() => setNow(Date.now()), 1000);
+    return () => window.clearInterval(timer);
+  }, [playing]);
+
   const selectedCount = game.selected.length;
   const remaining = MAX_MISTAKES - game.mistakes;
 
   function handleToggle(word: string) {
-    setGame((state) => toggleTile(state, word));
+    setRun((current) => ({ ...current, game: toggleTile(current.game, word) }));
   }
 
   function handleSubmit() {
+    const selected = [...game.selected];
     const outcome = submit(game);
-    setGame(outcome.state);
+    if (outcome.result !== "correct" && outcome.result !== "wrong" && outcome.result !== "one-away") return;
+
+    const nextHistory = [...history, { result: outcome.result, level: outcome.solvedGroup?.level }];
+    const nextGuesses = [...run.guesses, selected];
+    setRun({ game: outcome.state, guesses: nextGuesses, history: nextHistory });
     if (outcome.result === "correct" && outcome.state.status === "won") setCelebrating(true);
     if (outcome.result === "wrong" || outcome.result === "one-away") setShakeToken((n) => n + 1);
     if (outcome.result === "one-away") setToast({ id: Date.now() });
+
+    onProgress?.(nextGuesses);
+    if (outcome.state.status !== "playing") {
+      onFinish?.({
+        won: outcome.state.status === "won",
+        mistakes: outcome.state.mistakes,
+        seconds: Math.floor((Date.now() - start) / 1000),
+        guesses: nextGuesses,
+        history: nextHistory,
+      });
+    }
   }
 
   return (
@@ -81,6 +123,7 @@ export function Board({ puzzle, random = Math.random }: BoardProps) {
           <span aria-hidden="true">{"●".repeat(remaining)}{"○".repeat(game.mistakes)}</span>
           <span className="sr-only">{`${remaining} of ${MAX_MISTAKES} mistakes left`}</span>
         </span>
+        {playing && <span className="timer">{formatDuration(now - start)}</span>}
         {toast && (
           <p className={reduced ? "toast" : "toast toast-animated"} role="status">
             One Away…
@@ -89,13 +132,23 @@ export function Board({ puzzle, random = Math.random }: BoardProps) {
       </div>
 
       <div className="board-actions">
-        <GameButton variant="secondary" size="md" onClick={() => setGame((s) => shuffle(s, random))} disabled={game.status !== "playing"}>
+        <GameButton
+          variant="secondary"
+          size="md"
+          onClick={() => setRun((current) => ({ ...current, game: shuffle(current.game, Math.random) }))}
+          disabled={!playing}
+        >
           Shuffle
         </GameButton>
-        <GameButton variant="secondary" size="md" onClick={() => setGame(deselectAll)} disabled={selectedCount === 0}>
+        <GameButton
+          variant="secondary"
+          size="md"
+          onClick={() => setRun((current) => ({ ...current, game: deselectAll(current.game) }))}
+          disabled={selectedCount === 0}
+        >
           Deselect all
         </GameButton>
-        <GameButton size="md" onClick={handleSubmit} disabled={selectedCount !== GROUP_SIZE || game.status !== "playing"}>
+        <GameButton size="md" onClick={handleSubmit} disabled={selectedCount !== GROUP_SIZE || !playing}>
           Submit
         </GameButton>
       </div>
@@ -106,9 +159,7 @@ export function Board({ puzzle, random = Math.random }: BoardProps) {
         </p>
       )}
 
-      {celebrating && (
-        <Celebration id="solved" label="Solved!" onDone={() => setCelebrating(false)} />
-      )}
+      {celebrating && <Celebration id="solved" label="Solved!" onDone={() => setCelebrating(false)} />}
     </div>
   );
 }

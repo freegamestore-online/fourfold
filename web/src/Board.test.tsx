@@ -76,6 +76,57 @@ describe("Board", () => {
     expect(submitButton()).toBeDisabled();
   });
 
+  it("reports progress after each scored guess", () => {
+    const onProgress = vi.fn();
+    render(<Board puzzle={PUZZLE} random={random} onProgress={onProgress} />);
+    pick(PUZZLE.groups[1]!.words);
+    fireEvent.click(submitButton());
+    expect(onProgress).toHaveBeenCalledWith([[...PUZZLE.groups[1]!.words]]);
+  });
+
+  it("reports the finish once, with the mistakes and history, after four mistakes", () => {
+    const onFinish = vi.fn();
+    render(<Board puzzle={PUZZLE} random={random} onFinish={onFinish} />);
+    const wrong = [PUZZLE.groups[0]!.words[0]!, PUZZLE.groups[0]!.words[1]!, PUZZLE.groups[1]!.words[0]!, PUZZLE.groups[2]!.words[0]!];
+    for (let i = 0; i < 4; i++) {
+      if (i > 0) fireEvent.click(screen.getByRole("button", { name: "Deselect all" }));
+      pick(wrong);
+      fireEvent.click(submitButton());
+    }
+    expect(onFinish).toHaveBeenCalledTimes(1);
+    expect(onFinish.mock.calls[0]![0]).toMatchObject({ won: false, mistakes: 4 });
+    expect(onFinish.mock.calls[0]![0].history).toHaveLength(4);
+  });
+
+  it("restores saved guesses and does not report a finish again", () => {
+    const onFinish = vi.fn();
+    const onProgress = vi.fn();
+    render(
+      <Board
+        puzzle={PUZZLE}
+        random={random}
+        guesses={[[...PUZZLE.groups[0]!.words], [...PUZZLE.groups[1]!.words], [...PUZZLE.groups[2]!.words], [...PUZZLE.groups[3]!.words]]}
+        onFinish={onFinish}
+        onProgress={onProgress}
+      />,
+    );
+    expect(screen.getByRole("region", { name: "Pastries" })).toBeInTheDocument();
+    expect(screen.getByRole("region", { name: "Dogs" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Submit" })).toBeDisabled();
+    expect(onFinish).not.toHaveBeenCalled();
+    expect(onProgress).not.toHaveBeenCalled();
+  });
+
+  it("shows the elapsed time while the run is live", () => {
+    vi.useFakeTimers({ shouldAdvanceTime: false });
+    try {
+      render(<Board puzzle={PUZZLE} random={random} startedAt={Date.now() - 65_000} />);
+      expect(screen.getByText("1:05")).toBeInTheDocument();
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
   it("celebrates and locks the board once all four groups are solved", () => {
     render(<Board puzzle={PUZZLE} random={random} />);
     for (const group of PUZZLE.groups) {
