@@ -1,7 +1,7 @@
-import { useEffect, useRef, useState } from "react";
+import { type ReactNode, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { GameButton } from "@freegamestore/games";
 import { Celebration } from "./feel/Celebration";
-import { useShake } from "./feel";
+import { fitText, useShake } from "./feel";
 import { prefersReducedMotion } from "./motion/reducedMotion";
 import { formatDuration } from "./lib/format";
 import {
@@ -38,9 +38,19 @@ export interface BoardProps {
   startedAt?: number;
   onProgress?: (guesses: string[][]) => void;
   onFinish?: (outcome: FinishOutcome) => void;
+  /** An extra control shown in the status row, such as the archive button. */
+  statusAction?: ReactNode;
 }
 
-export function Board({ puzzle, random = Math.random, guesses = [], startedAt, onProgress, onFinish }: BoardProps) {
+export function Board({
+  puzzle,
+  random = Math.random,
+  guesses = [],
+  startedAt,
+  onProgress,
+  onFinish,
+  statusAction,
+}: BoardProps) {
   const [run, setRun] = useState<Replay>(() => replayGuesses(createGame(puzzle, random), guesses));
   const [start] = useState(() => startedAt ?? Date.now());
   const [now, setNow] = useState(() => Date.now());
@@ -129,6 +139,7 @@ export function Board({ puzzle, random = Math.random, guesses = [], startedAt, o
             One Away…
           </p>
         )}
+        {statusAction}
       </div>
 
       <div className="board-actions">
@@ -189,6 +200,17 @@ function Tile({ word, selected, shakeToken, onToggle }: TileProps) {
   const ref = useRef<HTMLButtonElement>(null);
   const shake = useShake(ref);
   const lastToken = useRef(shakeToken);
+
+  // Fit the label to the tile, again whenever the word or the screen size changes.
+  // biome-ignore lint/correctness/useExhaustiveDependencies: the label is the word, so each new word is refitted.
+  useLayoutEffect(() => {
+    const element = ref.current;
+    if (!element) return;
+    const refit = () => fitText(element);
+    refit();
+    window.addEventListener("resize", refit);
+    return () => window.removeEventListener("resize", refit);
+  }, [word]);
 
   // A new shake token replays the shake on the selected tiles. Other re-renders do not.
   useEffect(() => {

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { GameAuth, GameButton, GameTopbar } from "@freegamestore/games";
+import { GameAuth, GameTopbar } from "@freegamestore/games";
 import GameShell from "./GameShell";
 import { Archive, DailyScreen, utcDate } from "./daily";
 
@@ -14,14 +14,7 @@ export default function App() {
       topbar={
         <GameTopbar
           title="Fourfold"
-          actions={
-            <>
-              <GameButton size="sm" variant="ghost" onClick={() => setView({ kind: "archive" })}>
-                Archive
-              </GameButton>
-              <GameAuth />
-            </>
-          }
+          actions={<GameAuth />}
         />
       }
     >

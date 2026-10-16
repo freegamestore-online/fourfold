@@ -67,6 +67,11 @@ export function DailyScreen({ date, today, onArchive }: DailyScreenProps) {
         startedAt={progress.startedAt}
         onProgress={handleProgress}
         onFinish={handleFinish}
+        statusAction={
+          <GameButton size="sm" variant="ghost" onClick={onArchive}>
+            Archive
+          </GameButton>
+        }
       />
       {saved && (
         <ResultCard
@@ -129,6 +134,9 @@ function ResultCard({ result, puzzle, number, stats, onArchive }: ResultCardProp
           Archive
         </GameButton>
       </div>
+      <a className="store-link" href="https://freegamestore.online" target="_blank" rel="noopener noreferrer">
+        Built for freegamestore.online
+      </a>
       {stats && (
         <p className="stats-line">
           Played {stats.played} · Win {stats.played === 0 ? 0 : Math.round((stats.won / stats.played) * 100)}% · Streak{" "}

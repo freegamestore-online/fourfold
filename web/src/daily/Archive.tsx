@@ -35,6 +35,9 @@ export function Archive({ today, onPlay, onExit }: ArchiveProps) {
           );
         })}
       </ul>
+      <a className="store-link" href="https://freegamestore.online" target="_blank" rel="noopener noreferrer">
+        Built for freegamestore.online
+      </a>
       <GameButton size="md" variant="ghost" onClick={onExit}>
         Back to today
       </GameButton>

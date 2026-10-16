@@ -3,6 +3,7 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import { VitePWA } from "vite-plugin-pwa";
+import { LISTING } from "./src/listing";
 
 export default defineConfig({
   plugins: [
@@ -43,7 +44,7 @@ export default defineConfig({
       manifest: {
         name: "Fourfold",
         short_name: "Fourfold",
-        description: "Fourfold — free forever",
+        description: LISTING.tagline,
         start_url: "/",
         display: "standalone",
         background_color: "#0f0f0f",
