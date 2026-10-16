@@ -81,7 +81,7 @@ describe("Board", () => {
     render(<Board puzzle={PUZZLE} random={random} onProgress={onProgress} />);
     pick(PUZZLE.groups[1]!.words);
     fireEvent.click(submitButton());
-    expect(onProgress).toHaveBeenCalledWith([[...PUZZLE.groups[1]!.words]]);
+    expect(onProgress).toHaveBeenCalledWith([[...PUZZLE.groups[1]!.words]], expect.any(Number));
   });
 
   it("reports the finish once, with the mistakes and history, after four mistakes", () => {
@@ -122,6 +122,28 @@ describe("Board", () => {
     try {
       render(<Board puzzle={PUZZLE} random={random} startedAt={Date.now() - 65_000} />);
       expect(screen.getByText("1:05")).toBeInTheDocument();
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
+  it("keeps the timer at zero until the first submitted guess", async () => {
+    vi.useFakeTimers({ shouldAdvanceTime: false });
+    try {
+      render(<Board puzzle={PUZZLE} random={random} />);
+      expect(screen.getByText("0:00")).toBeInTheDocument();
+
+      await act(async () => {
+        vi.advanceTimersByTime(5_000);
+      });
+      expect(screen.getByText("0:00")).toBeInTheDocument();
+
+      pick(PUZZLE.groups[0]!.words);
+      fireEvent.click(submitButton());
+      await act(async () => {
+        vi.advanceTimersByTime(2_000);
+      });
+      expect(screen.getByText("0:02")).toBeInTheDocument();
     } finally {
       vi.useRealTimers();
     }

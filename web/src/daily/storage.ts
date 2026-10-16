@@ -16,7 +16,7 @@ export interface DayResult {
 export interface Progress {
   date: string;
   /** When the first guess started, in ms since the epoch. Time counts from here. */
-  startedAt: number;
+  startedAt?: number;
   guesses: string[][];
 }
 
@@ -76,6 +76,8 @@ export function loadProgress(date: string): Progress | null {
   if (!value || typeof value !== "object") return null;
   const p = value as Partial<Progress>;
   const valid =
-    p.date === date && typeof p.startedAt === "number" && Number.isFinite(p.startedAt) && isGuessList(p.guesses);
+    p.date === date &&
+    (p.startedAt === undefined || (typeof p.startedAt === "number" && Number.isFinite(p.startedAt))) &&
+    isGuessList(p.guesses);
   return valid ? (p as Progress) : null;
 }

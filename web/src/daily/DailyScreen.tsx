@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { GameButton, useLeaderboard } from "@freegamestore/games";
 import { Board, type FinishOutcome } from "../Board";
 import { GAME_ID } from "../config";
@@ -28,13 +28,13 @@ export function DailyScreen({ date, today, onArchive }: DailyScreenProps) {
   const puzzle = toPuzzleDef(puzzleForDate(date));
   const number = dailyNumber(date);
   const { submitScore } = useLeaderboard(GAME_ID);
-  const [progress, setProgress] = useState<Progress>(() => loadProgress(date) ?? { date, startedAt: Date.now(), guesses: [] });
+  const [progress, setProgress] = useState<Progress>(() => loadProgress(date) ?? { date, guesses: [] });
   const [saved, setSaved] = useState<DayResult | null>(() => loadResult(date));
   const [stats, setStats] = useState<Stats>(loadStats);
   const [deck] = useState(() => seededRandom(date));
 
-  function handleProgress(guesses: string[][]) {
-    const next = { ...progress, guesses };
+  function handleProgress(guesses: string[][], startedAt: number) {
+    const next = { ...progress, startedAt: progress.startedAt ?? startedAt, guesses };
     setProgress(next);
     saveProgress(next);
   }
@@ -50,11 +50,13 @@ export function DailyScreen({ date, today, onArchive }: DailyScreenProps) {
     saveResult(result);
     setSaved(result);
     if (!isToday) return;
-    const next = recordResult(stats, date, outcome.won, outcome.mistakes);
-    saveStats(next);
-    setStats(next);
+    const latestStats = loadStats();
+    const next = recordResult(latestStats, date, outcome.won, outcome.mistakes);
+    const alreadyRecorded = next === latestStats;
+    if (!alreadyRecorded) saveStats(next);
+    setStats(alreadyRecorded ? latestStats : next);
     // Quiet on failure: submitScore never throws, and an "Invalid game" reply is ignored.
-    if (outcome.won) void submitScore(leaderboardScore(outcome.mistakes, outcome.seconds));
+    if (outcome.won && !alreadyRecorded) void submitScore(leaderboardScore(outcome.mistakes, outcome.seconds));
   }
 
   return (
@@ -96,6 +98,13 @@ interface ResultCardProps {
 
 function ResultCard({ result, puzzle, number, stats, onArchive }: ResultCardProps) {
   const [message, setMessage] = useState<string | null>(null);
+  const isMounted = useRef(true);
+  useEffect(() => {
+    isMounted.current = true;
+    return () => {
+      isMounted.current = false;
+    };
+  }, []);
   const history = replayGuesses(createGame(puzzle), result.guesses).history;
   const text = shareText({
     number,
@@ -108,13 +117,18 @@ function ResultCard({ result, puzzle, number, stats, onArchive }: ResultCardProp
   async function share() {
     try {
       if (typeof navigator.share === "function") {
-        await navigator.share({ text });
-        return;
+        try {
+          await navigator.share({ text });
+          return;
+        } catch (error) {
+          if (error instanceof DOMException && error.name === "AbortError") return;
+        }
       }
+      if (!navigator.clipboard?.writeText) throw new Error("Clipboard is unavailable");
       await navigator.clipboard.writeText(text);
-      setMessage("Copied");
+      if (isMounted.current) setMessage("Copied");
     } catch {
-      // Cancelled or blocked: nothing to report.
+      if (isMounted.current) setMessage("Couldn't copy — try long-pressing the text");
     }
   }
 

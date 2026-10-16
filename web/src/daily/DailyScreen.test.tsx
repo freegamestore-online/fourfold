@@ -3,7 +3,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import { EPOCH, addDays, puzzleForDate } from "./date";
 import { DailyScreen } from "./DailyScreen";
 import { loadProgress, loadResult, saveResult } from "./storage";
-import { loadStats } from "./stats";
+import { EMPTY_STATS, loadStats, saveStats } from "./stats";
 
 const TODAY = EPOCH;
 const YESTERDAY = addDays(EPOCH, -1);
@@ -71,10 +71,12 @@ describe("DailyScreen", () => {
 
   it("saves in-progress guesses and restores them on reopen", async () => {
     const { unmount } = await renderDaily(TODAY, TODAY, () => {});
+    expect(loadProgress(TODAY)?.startedAt).toBeUndefined();
     const first = puzzleForDate(TODAY).groups[0]!;
     for (const word of first.words) await click(screen.getByRole("button", { name: word }));
     await click(screen.getByRole("button", { name: "Submit" }));
     expect(loadProgress(TODAY)?.guesses).toEqual([[...first.words]]);
+    expect(loadProgress(TODAY)?.startedAt).toEqual(expect.any(Number));
     await act(async () => unmount());
 
     await renderDaily(TODAY, TODAY, () => {});
@@ -109,6 +111,61 @@ describe("DailyScreen", () => {
     await vi.waitFor(() => expect(scorePosts()).toHaveLength(1));
     expect(screen.queryByText(/invalid game/i)).toBeNull();
     expect(screen.getByRole("heading", { name: "Solved!" })).toBeInTheDocument();
+  });
+
+  it("uses current localStorage stats to avoid double counting from a stale tab", async () => {
+    await renderDaily(TODAY, TODAY, () => {});
+    const alreadyRecorded = { ...EMPTY_STATS, played: 1, lastPlayed: TODAY };
+    saveStats(alreadyRecorded);
+
+    await solve(TODAY);
+
+    expect(loadStats()).toEqual(alreadyRecorded);
+    expect(scorePosts()).toHaveLength(0);
+  });
+
+  it("shows a selectable-text hint when sharing and clipboard copy are unavailable", async () => {
+    Object.defineProperty(navigator, "share", { configurable: true, value: undefined });
+    Object.defineProperty(navigator, "clipboard", { configurable: true, value: undefined });
+    saveResult({ date: TODAY, won: true, mistakes: 0, seconds: 40, guesses: [] });
+    await renderDaily(TODAY, TODAY, () => {});
+
+    await click(within(screen.getByRole("region", { name: "Result" })).getByRole("button", { name: "Share" }));
+
+    expect(await screen.findByText("Couldn't copy — try long-pressing the text")).toBeInTheDocument();
+    expect(document.querySelector(".share-grid")).toBeInTheDocument();
+  });
+
+  it("shows a selectable-text hint when clipboard writing is rejected", async () => {
+    Object.defineProperty(navigator, "share", { configurable: true, value: undefined });
+    Object.defineProperty(navigator, "clipboard", {
+      configurable: true,
+      value: { writeText: vi.fn().mockRejectedValue(new Error("Clipboard denied")) },
+    });
+    saveResult({ date: TODAY, won: true, mistakes: 0, seconds: 40, guesses: [] });
+    await renderDaily(TODAY, TODAY, () => {});
+
+    await click(within(screen.getByRole("region", { name: "Result" })).getByRole("button", { name: "Share" }));
+
+    expect(await screen.findByText("Couldn't copy — try long-pressing the text")).toBeInTheDocument();
+  });
+
+  it("does not update share state when a clipboard write resolves after unmount", async () => {
+    let resolveWrite!: () => void;
+    const writeText = vi.fn(() => new Promise<void>((resolve) => { resolveWrite = resolve; }));
+    Object.defineProperty(navigator, "share", { configurable: true, value: undefined });
+    Object.defineProperty(navigator, "clipboard", { configurable: true, value: { writeText } });
+    saveResult({ date: TODAY, won: true, mistakes: 0, seconds: 40, guesses: [] });
+    const { unmount } = await renderDaily(TODAY, TODAY, () => {});
+    const consoleError = vi.spyOn(console, "error").mockImplementation(() => {});
+
+    await click(within(screen.getByRole("region", { name: "Result" })).getByRole("button", { name: "Share" }));
+    expect(writeText).toHaveBeenCalledOnce();
+    await act(async () => unmount());
+    await act(async () => resolveWrite());
+
+    expect(consoleError).not.toHaveBeenCalled();
+    consoleError.mockRestore();
   });
 
   it("offers the archive from the result", async () => {

@@ -34,9 +34,9 @@ export interface BoardProps {
   random?: Random;
   /** Guesses already made, replayed on mount to restore a saved run. */
   guesses?: string[][];
-  /** When the run started, in ms since the epoch. Defaults to mount time. */
+  /** When the first scored guess was submitted, in ms since the epoch. */
   startedAt?: number;
-  onProgress?: (guesses: string[][]) => void;
+  onProgress?: (guesses: string[][], startedAt: number) => void;
   onFinish?: (outcome: FinishOutcome) => void;
   /** An extra control shown in the status row, such as the archive button. */
   statusAction?: ReactNode;
@@ -52,7 +52,7 @@ export function Board({
   statusAction,
 }: BoardProps) {
   const [run, setRun] = useState<Replay>(() => replayGuesses(createGame(puzzle, random), guesses));
-  const [start] = useState(() => startedAt ?? Date.now());
+  const [start, setStart] = useState<number | undefined>(() => startedAt ?? (guesses.length > 0 ? Date.now() : undefined));
   const [now, setNow] = useState(() => Date.now());
   // Bumped on each wrong guess, so the selected tiles shake once per guess.
   const [shakeToken, setShakeToken] = useState(0);
@@ -71,10 +71,10 @@ export function Board({
 
   // Tick the timer once a second while the run is live.
   useEffect(() => {
-    if (!playing) return;
+    if (!playing || start === undefined) return;
     const timer = window.setInterval(() => setNow(Date.now()), 1000);
     return () => window.clearInterval(timer);
-  }, [playing]);
+  }, [playing, start]);
 
   const selectedCount = game.selected.length;
   const remaining = MAX_MISTAKES - game.mistakes;
@@ -90,17 +90,22 @@ export function Board({
 
     const nextHistory = [...history, { result: outcome.result, level: outcome.solvedGroup?.level }];
     const nextGuesses = [...run.guesses, selected];
+    const startedAt = start ?? Date.now();
+    if (start === undefined) {
+      setStart(startedAt);
+      setNow(startedAt);
+    }
     setRun({ game: outcome.state, guesses: nextGuesses, history: nextHistory });
     if (outcome.result === "correct" && outcome.state.status === "won") setCelebrating(true);
     if (outcome.result === "wrong" || outcome.result === "one-away") setShakeToken((n) => n + 1);
     if (outcome.result === "one-away") setToast({ id: Date.now() });
 
-    onProgress?.(nextGuesses);
+    onProgress?.(nextGuesses, startedAt);
     if (outcome.state.status !== "playing") {
       onFinish?.({
         won: outcome.state.status === "won",
         mistakes: outcome.state.mistakes,
-        seconds: Math.floor((Date.now() - start) / 1000),
+        seconds: Math.floor((Date.now() - startedAt) / 1000),
         guesses: nextGuesses,
         history: nextHistory,
       });
@@ -133,7 +138,7 @@ export function Board({
           <span aria-hidden="true">{"●".repeat(remaining)}{"○".repeat(game.mistakes)}</span>
           <span className="sr-only">{`${remaining} of ${MAX_MISTAKES} mistakes left`}</span>
         </span>
-        {playing && <span className="timer">{formatDuration(now - start)}</span>}
+        {playing && <span className="timer">{formatDuration(start === undefined ? 0 : now - start)}</span>}
         {toast && (
           <p className={reduced ? "toast" : "toast toast-animated"} role="status">
             One Away…

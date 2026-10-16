@@ -47,7 +47,7 @@ export default defineConfig({
         description: LISTING.tagline,
         start_url: "/",
         display: "standalone",
-        background_color: "#0f0f0f",
+        background_color: "#ffffff",
         theme_color: "#2563eb",
         orientation: "any",
         min_viewport_width: 360,
