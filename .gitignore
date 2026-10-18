@@ -2,6 +2,7 @@ node_modules
 dist
 .vite
 *.local
+web/test-results
 .DS_Store
 
 # TypeScript incremental build cache
