@@ -16,8 +16,8 @@ describe("daily dates", () => {
 
   it("gives every date the same puzzle, and wraps after the last puzzle", () => {
     expect(puzzleForDate(EPOCH).id).toBe(1);
-    expect(puzzleForDate(addDays(EPOCH, 119)).id).toBe(120);
-    expect(puzzleForDate(addDays(EPOCH, 120)).id).toBe(1);
+    expect(puzzleForDate(addDays(EPOCH, 179)).id).toBe(180);
+    expect(puzzleForDate(addDays(EPOCH, 180)).id).toBe(1);
   });
 
   it("wraps over any list length", () => {

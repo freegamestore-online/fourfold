@@ -1,4 +1,4 @@
-// Content batches 1 and 2: 120 original, family-friendly puzzles (ids 1-60 and 61-120).
+// Content batches: 180 family-friendly daily puzzles (ids 1-180).
 // Each puzzle has four groups of four words. Difficulty runs 1 (easiest) to 4 (hardest)
 // and is used once per puzzle.
 // Each group's redHerring names the trap: a word that could fit another group.
@@ -1223,5 +1223,606 @@ export const puzzles: Puzzle[] = [
       { label: "Words that go before FISH", words: ["SAW", "MOON", "CAT", "SILVER"], difficulty: 4, kind: "wordplay", redHerring: "MUD and ANGEL look like they fit this group, but they belong with CAKE." },
     ],
     decoys: ["MUD", "ANGEL"],
+  },
+
+  {
+    id: 121,
+    groups: [
+      { label: "Farm animals", words: ["COW", "HEN", "GOAT", "MULE"], difficulty: 1, kind: "category", redHerring: "MULE is also slang for a stubborn person, but here it is a working farm animal." },
+      { label: "Breakfast foods", words: ["TOAST", "BACON", "WAFFLE", "PANCAKE"], difficulty: 2, kind: "category", redHerring: "BACON comes from a pig, which pulls toward the farm animals, but it belongs at the breakfast table." },
+      { label: "Words that precede FIRE", words: ["CAMP", "CROSS", "OPEN", "RAPID"], difficulty: 3, kind: "wordplay", redHerring: "CAMP and CROSS can suggest farm animals, but each forms a familiar compound with FIRE." },
+      { label: "Words that follow BIRD", words: ["CAGE", "SEED", "CALL", "WATCH"], difficulty: 4, kind: "wordplay", redHerring: "CAGE and SEED may suggest breakfast foods, but each forms a familiar compound after BIRD." },
+    ],
+    decoys: ["CAMP", "CAGE"],
+  },
+  {
+    id: 122,
+    groups: [
+      { label: "Tempo markings", words: ["ALLEGRO", "LARGO", "PRESTO", "ADAGIO"], difficulty: 1, kind: "category", redHerring: "PRESTO is also a magic word, a trap for fans of wordplay." },
+      { label: "Male animals", words: ["BUCK", "BULL", "RAM", "STAG"], difficulty: 2, kind: "category", redHerring: "BUCK is also slang for a dollar, a trap toward money words." },
+      { label: "Words that precede STAR", words: ["NORTH", "ROCK", "SHOOTING", "SUPER"], difficulty: 3, kind: "wordplay", redHerring: "NORTH and ROCK can suggest tempo markings, but each forms a familiar compound with STAR." },
+      { label: "Words that follow BACK", words: ["PACK", "YARD", "STAGE", "BONE"], difficulty: 4, kind: "wordplay", redHerring: "PACK and YARD may suggest male animals, but each forms a familiar compound after BACK." },
+    ],
+    decoys: ["NORTH", "PACK"],
+  },
+  {
+    id: 123,
+    groups: [
+      { label: "Breads", words: ["BAGUETTE", "CIABATTA", "FOCACCIA", "BAGEL"], difficulty: 1, kind: "category", redHerring: "BAGEL is also a breakfast item, which can pull toward a meal group." },
+      { label: "Parts of a cell", words: ["NUCLEUS", "MEMBRANE", "RIBOSOME", "VACUOLE"], difficulty: 2, kind: "category", redHerring: "NUCLEUS is also a physics word, which can pull toward atoms." },
+      { label: "Words that precede BLUE", words: ["MOON", "GRASS", "PRINT", "BERRY"], difficulty: 3, kind: "wordplay", redHerring: "MOON and GRASS can suggest breads, but each forms a familiar compound with BLUE." },
+      { label: "Words that follow COLD", words: ["SNAP", "WAR", "CASE", "FRONT"], difficulty: 4, kind: "wordplay", redHerring: "SNAP and WAR may suggest parts of a cell, but each forms a familiar compound after COLD." },
+    ],
+    decoys: ["MOON", "SNAP"],
+  },
+  {
+    id: 124,
+    groups: [
+      { label: "Famous ships", words: ["MAYFLOWER", "TITANIC", "BEAGLE", "VICTORY"], difficulty: 1, kind: "category", redHerring: "BEAGLE is also a dog breed, a trap toward dogs." },
+      { label: "Words that go before ROOM", words: ["BED", "CLASS", "MUSH", "STOCK"], difficulty: 2, kind: "category", redHerring: "MUSH could be food, a trap toward food." },
+      { label: "Words that precede GREEN", words: ["HOUSE", "GOOSE", "LIGHT", "ROOM"], difficulty: 3, kind: "wordplay", redHerring: "HOUSE and GOOSE can suggest famous ships, but each forms a familiar compound with GREEN." },
+      { label: "Words that follow DARK", words: ["HORSE", "MATTER", "CHOCOLATE", "AGES"], difficulty: 4, kind: "wordplay", redHerring: "HORSE and MATTER may suggest words that go before room, but each forms a familiar compound after DARK." },
+    ],
+    decoys: ["HOUSE", "HORSE"],
+  },
+  {
+    id: 125,
+    groups: [
+      { label: "Words from Hindi", words: ["BUNGALOW", "JUNGLE", "SHAMPOO", "LOOT"], difficulty: 1, kind: "category", redHerring: "LOOT is also a heist word, which can pull toward crime." },
+      { label: "Sled dogs", words: ["MALAMUTE", "SAMOYED", "AKITA", "CHOW"], difficulty: 2, kind: "category", redHerring: "CHOW is also food, a trap toward food." },
+      { label: "Words that precede BLACK", words: ["MAIL", "BOARD", "BERRY", "JACK"], difficulty: 3, kind: "wordplay", redHerring: "MAIL and BOARD can suggest words from hindi, but each forms a familiar compound with BLACK." },
+      { label: "Words that follow HAND", words: ["BAG", "SHAKE", "STAND", "WRITING"], difficulty: 4, kind: "wordplay", redHerring: "BAG and SHAKE may suggest sled dogs, but each forms a familiar compound after HAND." },
+    ],
+    decoys: ["MAIL", "BAG"],
+  },
+  {
+    id: 126,
+    groups: [
+      { label: "Composers", words: ["MOZART", "CHOPIN", "HAYDN", "BACH"], difficulty: 1, kind: "category", redHerring: "BACH is also the German word for a stream, a trap toward water." },
+      { label: "Subatomic particles", words: ["PROTON", "NEUTRON", "ELECTRON", "QUARK"], difficulty: 2, kind: "category", redHerring: "QUARK is also a soft cheese in German, a food trap." },
+      { label: "Words that precede SIDE", words: ["KICK", "ROAD", "SHOW", "SADDLE"], difficulty: 3, kind: "wordplay", redHerring: "KICK and ROAD can suggest composers, but each forms a familiar compound with SIDE." },
+      { label: "Words that follow STONE", words: ["COLD", "WALL", "FRUIT", "AGE"], difficulty: 4, kind: "wordplay", redHerring: "COLD and WALL may suggest subatomic particles, but each forms a familiar compound after STONE." },
+    ],
+    decoys: ["KICK", "COLD"],
+  },
+  {
+    id: 127,
+    groups: [
+      { label: "Volcano parts", words: ["CRATER", "MAGMA", "LAVA", "VENT"], difficulty: 1, kind: "category", redHerring: "VENT is also a way to express feelings, a trap toward emotions." },
+      { label: "Things with wings", words: ["PLANE", "HOSPITAL", "PALACE", "THEATRE"], difficulty: 2, kind: "category", redHerring: "PLANE is also a flat surface, which can pull toward the flat group." },
+      { label: "Words that precede WATER", words: ["FALL", "MELON", "PROOF", "WORKS"], difficulty: 3, kind: "wordplay", redHerring: "FALL and MELON can suggest volcano parts, but each forms a familiar compound with WATER." },
+      { label: "Words that follow MOON", words: ["FULL", "HARVEST", "HONEY", "BLUE"], difficulty: 4, kind: "wordplay", redHerring: "FULL and HARVEST may suggest things with wings, but each forms a familiar compound after MOON." },
+    ],
+    decoys: ["FALL", "FULL"],
+  },
+  {
+    id: 128,
+    groups: [
+      { label: "Stage directions", words: ["ENTER", "EXIT", "ASIDE", "CUE"], difficulty: 1, kind: "category", redHerring: "CUE is also a snooker stick, a trap toward snooker." },
+      { label: "Parts of a tree", words: ["BARK", "ROOT", "TRUNK", "BRANCH"], difficulty: 2, kind: "category", redHerring: "BRANCH is also a bank office, a trap toward money." },
+      { label: "Words that precede SNOW", words: ["BALL", "FLAKE", "DRIFT", "PLOW"], difficulty: 3, kind: "wordplay", redHerring: "BALL and FLAKE can suggest stage directions, but each forms a familiar compound with SNOW." },
+      { label: "Words that follow GOLD", words: ["RUSH", "FISH", "LEAF", "MEDAL"], difficulty: 4, kind: "wordplay", redHerring: "RUSH and FISH may suggest parts of a tree, but each forms a familiar compound after GOLD." },
+    ],
+    decoys: ["BALL", "RUSH"],
+  },
+  {
+    id: 129,
+    groups: [
+      { label: "Pastas", words: ["LASAGNE", "GNOCCHI", "RAVIOLI", "TORTELLINI"], difficulty: 1, kind: "category", redHerring: "GNOCCHI looks like dumplings, a trap toward dumplings." },
+      { label: "Fielding positions", words: ["SLIP", "POINT", "COVER", "SILLY"], difficulty: 2, kind: "category", redHerring: "POINT is also a sharp end, a trap toward sharpness." },
+      { label: "Words that precede FOOT", words: ["BALL", "BRIDGE", "PRINT", "LOOSE"], difficulty: 3, kind: "wordplay", redHerring: "BALL and BRIDGE can suggest pastas, but each forms a familiar compound with FOOT." },
+      { label: "Words that follow SILVER", words: ["LINING", "SCREEN", "SPOON", "BELLS"], difficulty: 4, kind: "wordplay", redHerring: "LINING and SCREEN may suggest fielding positions, but each forms a familiar compound after SILVER." },
+    ],
+    decoys: ["BALL", "LINING"],
+  },
+  {
+    id: 130,
+    groups: [
+      { label: "Chemist's goods", words: ["ASPIRIN", "TABLET", "LOTION", "OINTMENT"], difficulty: 1, kind: "category", redHerring: "TABLET is also a computer, a trap toward computing." },
+      { label: "Rock types", words: ["GRANITE", "MARBLE", "SLATE", "BASALT"], difficulty: 2, kind: "category", redHerring: "MARBLE is also a glass toy, and SLATE is a verb for criticising, both traps." },
+      { label: "Words that precede CROSS", words: ["WORD", "WALK", "BOW", "ROADS"], difficulty: 3, kind: "wordplay", redHerring: "WORD and WALK can suggest chemist's goods, but each forms a familiar compound with CROSS." },
+      { label: "Words that follow BELL", words: ["HOP", "FLOWER", "TOWER", "PEPPER"], difficulty: 4, kind: "wordplay", redHerring: "HOP and FLOWER may suggest rock types, but each forms a familiar compound after BELL." },
+    ],
+    decoys: ["WORD", "HOP"],
+  },
+  {
+    id: 131,
+    groups: [
+      { label: "Dog breeds", words: ["BEAGLE", "POODLE", "BOXER", "HUSKY"], difficulty: 1, kind: "category", redHerring: "BOXER is also a sports competitor, a trap that pulls you toward sports." },
+      { label: "Shades of red", words: ["CRIMSON", "SCARLET", "MAROON", "RUST"], difficulty: 2, kind: "category", redHerring: "RUST is also a metal decay, which can pull toward metals." },
+      { label: "Words that precede HONEY", words: ["BEE", "MOON", "COMB", "POT"], difficulty: 3, kind: "wordplay", redHerring: "BEE and MOON can suggest dog breeds, but each forms a familiar compound with HONEY." },
+      { label: "Words that follow BREAD", words: ["CRUMB", "STICK", "WINNER", "LINE"], difficulty: 4, kind: "wordplay", redHerring: "CRUMB and STICK may suggest shades of red, but each forms a familiar compound after BREAD." },
+    ],
+    decoys: ["BEE", "CRUMB"],
+  },
+  {
+    id: 132,
+    groups: [
+      { label: "Footwear", words: ["SANDAL", "CLOG", "LOAFER", "BOOT"], difficulty: 1, kind: "category", redHerring: "BOOT can also mean to kick a ball, a verb trap toward sports." },
+      { label: "Parts of a fish", words: ["GILL", "FIN", "SCALE", "FLUKE"], difficulty: 2, kind: "category", redHerring: "FLUKE is also a lucky chance, a trap toward luck." },
+      { label: "Words that precede EARTH", words: ["WORM", "QUAKE", "BOUND", "WORK"], difficulty: 3, kind: "wordplay", redHerring: "WORM and QUAKE can suggest footwear, but each forms a familiar compound with EARTH." },
+      { label: "Words that follow RAIN", words: ["BOW", "CHECK", "DROP", "FOREST"], difficulty: 4, kind: "wordplay", redHerring: "BOW and CHECK may suggest parts of a fish, but each forms a familiar compound after RAIN." },
+    ],
+    decoys: ["WORM", "BOW"],
+  },
+  {
+    id: 133,
+    groups: [
+      { label: "Body joints", words: ["KNEE", "ANKLE", "WRIST", "HIP"], difficulty: 1, kind: "category", redHerring: "HIP is also slang for cool, a trap for style words." },
+      { label: "Knitwear", words: ["BLAZER", "CARDIGAN", "HOODIE", "JUMPER"], difficulty: 2, kind: "category", redHerring: "BLAZER is also a jacket, a trap toward jackets." },
+      { label: "Words that precede WILD", words: ["CARD", "FIRE", "LIFE", "GOOSE"], difficulty: 3, kind: "wordplay", redHerring: "CARD and FIRE can suggest body joints, but each forms a familiar compound with WILD." },
+      { label: "Words that follow PAPER", words: ["CLIP", "JAM", "ROUTE", "TRAIL"], difficulty: 4, kind: "wordplay", redHerring: "CLIP and JAM may suggest knitwear, but each forms a familiar compound after PAPER." },
+    ],
+    decoys: ["CARD", "CLIP"],
+  },
+  {
+    id: 134,
+    groups: [
+      { label: "Writing tools", words: ["PEN", "PENCIL", "CRAYON", "CHALK"], difficulty: 1, kind: "category", redHerring: "CHALK is also a white cliff rock, a trap toward geography." },
+      { label: "Oceans", words: ["ARCTIC", "ATLANTIC", "INDIAN", "PACIFIC"], difficulty: 2, kind: "category", redHerring: "ARCTIC is also a fox, and INDIAN is also a people, so both can mislead." },
+      { label: "Words that precede RED", words: ["CARPET", "TAPE", "WOOD", "HANDED"], difficulty: 3, kind: "wordplay", redHerring: "CARPET and TAPE can suggest writing tools, but each forms a familiar compound with RED." },
+      { label: "Words that follow NIGHT", words: ["OWL", "CAP", "LIGHT", "SHADE"], difficulty: 4, kind: "wordplay", redHerring: "OWL and CAP may suggest oceans, but each forms a familiar compound after NIGHT." },
+    ],
+    decoys: ["CARPET", "OWL"],
+  },
+  {
+    id: 135,
+    groups: [
+      { label: "Shrubs", words: ["HOLLY", "HEATHER", "LILAC", "JASMINE"], difficulty: 1, kind: "category", redHerring: "HEATHER is also a girl's name, a trap toward names." },
+      { label: "Parts of a play", words: ["ACT", "SCENE", "PROLOGUE", "EPILOGUE"], difficulty: 2, kind: "category", redHerring: "SCENE is also a view or a setting, which can pull toward landscapes." },
+      { label: "Words that precede HIGH", words: ["HORSE", "TIDE", "WAY", "LIGHT"], difficulty: 3, kind: "wordplay", redHerring: "HORSE and TIDE can suggest shrubs, but each forms a familiar compound with HIGH." },
+      { label: "Words that follow SCHOOL", words: ["BUS", "BOOK", "MATE", "YARD"], difficulty: 4, kind: "wordplay", redHerring: "BUS and BOOK may suggest parts of a play, but each forms a familiar compound after SCHOOL." },
+    ],
+    decoys: ["HORSE", "BUS"],
+  },
+  {
+    id: 136,
+    groups: [
+      { label: "Knitting and needlecraft", words: ["PURL", "KNIT", "CROCHET", "TATTING"], difficulty: 1, kind: "category", redHerring: "KNIT is also a word for a bone healing, a trap toward medicine." },
+      { label: "Fairy creatures", words: ["PIXIE", "ELF", "GOBLIN", "SPRITE"], difficulty: 2, kind: "category", redHerring: "SPRITE is also a fizzy drink, a trap toward drinks." },
+      { label: "Words that precede SUN", words: ["RISE", "SET", "SPOT", "BURN"], difficulty: 3, kind: "wordplay", redHerring: "RISE and SET can suggest knitting and needlecraft, but each forms a familiar compound with SUN." },
+      { label: "Words that follow FLOWER", words: ["BED", "POT", "CHILD", "POWER"], difficulty: 4, kind: "wordplay", redHerring: "BED and POT may suggest fairy creatures, but each forms a familiar compound after FLOWER." },
+    ],
+    decoys: ["RISE", "BED"],
+  },
+  {
+    id: 137,
+    groups: [
+      { label: "Dances", words: ["MAMBO", "RUMBA", "FOXTROT", "CANCAN"], difficulty: 1, kind: "category", redHerring: "FOXTROT is also a letter in the phonetic alphabet, a trap toward letters." },
+      { label: "Breads", words: ["PRETZEL", "CRUMPET", "MUFFIN", "TORTILLA"], difficulty: 2, kind: "category", redHerring: "MUFFIN is also a cake, a trap toward cakes." },
+      { label: "Words that precede WIND", words: ["CHILL", "FALL", "PIPE", "UP"], difficulty: 3, kind: "wordplay", redHerring: "CHILL and FALL can suggest dances, but each forms a familiar compound with WIND." },
+      { label: "Words that follow MILL", words: ["STONE", "WHEEL", "RACE", "WORK"], difficulty: 4, kind: "wordplay", redHerring: "STONE and WHEEL may suggest breads, but each forms a familiar compound after MILL." },
+    ],
+    decoys: ["CHILL", "STONE"],
+  },
+  {
+    id: 138,
+    groups: [
+      { label: "Nautical directions", words: ["PORT", "STARBOARD", "STERN", "AFT"], difficulty: 1, kind: "category", redHerring: "STERN is also a serious manner, a trap toward mood words." },
+      { label: "Stringed instruments", words: ["BANJO", "UKULELE", "LUTE", "ZITHER"], difficulty: 2, kind: "category", redHerring: "LUTE is also a sealing clay used in craft work, which can pull you toward crafts." },
+      { label: "Words that precede MIND", words: ["SET", "READ", "BLIND", "OVER"], difficulty: 3, kind: "wordplay", redHerring: "SET and READ can suggest nautical directions, but each forms a familiar compound with MIND." },
+      { label: "Words that follow GAME", words: ["PLAN", "SHOW", "POINT", "PLAY"], difficulty: 4, kind: "wordplay", redHerring: "PLAN and SHOW may suggest stringed instruments, but each forms a familiar compound after GAME." },
+    ],
+    decoys: ["SET", "PLAN"],
+  },
+  {
+    id: 139,
+    groups: [
+      { label: "Cakes", words: ["SPONGE", "GATEAU", "BATTENBERG", "MADEIRA"], difficulty: 1, kind: "category", redHerring: "MADEIRA is also an island, a trap toward islands." },
+      { label: "Words for huge", words: ["GIANT", "JUMBO", "VAST", "ENORMOUS"], difficulty: 2, kind: "category", redHerring: "JUMBO is also a large animal name, which can pull toward animals." },
+      { label: "Words that precede TIME", words: ["TABLE", "KEEPER", "LESS", "ZONE"], difficulty: 3, kind: "wordplay", redHerring: "TABLE and KEEPER can suggest cakes, but each forms a familiar compound with TIME." },
+      { label: "Words that follow LINE", words: ["DANCE", "BACK", "DRIVE", "UP"], difficulty: 4, kind: "wordplay", redHerring: "DANCE and BACK may suggest words for huge, but each forms a familiar compound after LINE." },
+    ],
+    decoys: ["TABLE", "DANCE"],
+  },
+  {
+    id: 140,
+    groups: [
+      { label: "Mountain ranges", words: ["EVEREST", "ANDES", "ALPS", "ROCKIES"], difficulty: 1, kind: "category", redHerring: "EVEREST is a single peak rather than a range, and it is also a film title, a distraction." },
+      { label: "Magic items", words: ["WAND", "SPELL", "CAULDRON", "BROOM"], difficulty: 2, kind: "category", redHerring: "SPELL is also a word for a period of time, a trap toward time." },
+      { label: "Words that precede DUST", words: ["GOLD", "BOWL", "COVER", "STORM"], difficulty: 3, kind: "wordplay", redHerring: "GOLD and BOWL can suggest mountain ranges, but each forms a familiar compound with DUST." },
+      { label: "Words that follow JACKET", words: ["POTATO", "LIFE", "POCKET", "BOOK"], difficulty: 4, kind: "wordplay", redHerring: "POTATO and LIFE may suggest magic items, but each forms a familiar compound after JACKET." },
+    ],
+    decoys: ["GOLD", "POTATO"],
+  },
+  {
+    id: 141,
+    groups: [
+      { label: "Norse gods", words: ["THOR", "ODIN", "LOKI", "FREYA"], difficulty: 1, kind: "category", redHerring: "LOKI is also a comic-book character, which could pull toward comics, but here he is a god." },
+      { label: "Things with lids", words: ["JAR", "CASKET", "COFFER", "TUREEN"], difficulty: 2, kind: "category", redHerring: "CASKET is also a coffin, a trap toward funerals." },
+      { label: "Words that precede FIRE", words: ["CAMP", "CROSS", "OPEN", "RAPID"], difficulty: 3, kind: "wordplay", redHerring: "CAMP and CROSS can suggest norse gods, but each forms a familiar compound with FIRE." },
+      { label: "Words that follow BIRD", words: ["CAGE", "SEED", "CALL", "WATCH"], difficulty: 4, kind: "wordplay", redHerring: "CAGE and SEED may suggest things with lids, but each forms a familiar compound after BIRD." },
+    ],
+    decoys: ["CAMP", "CAGE"],
+  },
+  {
+    id: 142,
+    groups: [
+      { label: "Things with teeth", words: ["COMB", "SAW", "ZIP", "GEAR"], difficulty: 1, kind: "category", redHerring: "ZIP is also a word for speed, a trap toward fast words." },
+      { label: "Kitchen tools", words: ["WHISK", "LADLE", "SIEVE", "TONGS"], difficulty: 2, kind: "category", redHerring: "SIEVE is also slang for a forgetful person, which pulls toward memory words." },
+      { label: "Words that precede STAR", words: ["NORTH", "ROCK", "SHOOTING", "SUPER"], difficulty: 3, kind: "wordplay", redHerring: "NORTH and ROCK can suggest things with teeth, but each forms a familiar compound with STAR." },
+      { label: "Words that follow BACK", words: ["PACK", "YARD", "STAGE", "BONE"], difficulty: 4, kind: "wordplay", redHerring: "PACK and YARD may suggest kitchen tools, but each forms a familiar compound after BACK." },
+    ],
+    decoys: ["NORTH", "PACK"],
+  },
+  {
+    id: 143,
+    groups: [
+      { label: "Theatre features", words: ["STAGE", "CURTAIN", "ORCHESTRA", "BALCONY"], difficulty: 1, kind: "category", redHerring: "ORCHESTRA is also a group of musicians, which can pull toward music." },
+      { label: "Animal homes", words: ["SETT", "LAIR", "HIVE", "WARREN"], difficulty: 2, kind: "category", redHerring: "HIVE is also a busy place, a trap toward busy words." },
+      { label: "Words that precede BLUE", words: ["MOON", "GRASS", "PRINT", "BERRY"], difficulty: 3, kind: "wordplay", redHerring: "MOON and GRASS can suggest theatre features, but each forms a familiar compound with BLUE." },
+      { label: "Words that follow COLD", words: ["SNAP", "WAR", "CASE", "FRONT"], difficulty: 4, kind: "wordplay", redHerring: "SNAP and WAR may suggest animal homes, but each forms a familiar compound after COLD." },
+    ],
+    decoys: ["MOON", "SNAP"],
+  },
+  {
+    id: 144,
+    groups: [
+      { label: "Types of bear", words: ["POLAR", "GRIZZLY", "PANDA", "SLOTH"], difficulty: 1, kind: "category", redHerring: "SLOTH is also an animal and a sin, but the sloth bear is a real bear." },
+      { label: "Solid shapes", words: ["CUBE", "CONE", "CYLINDER", "TORUS"], difficulty: 2, kind: "category", redHerring: "CONE is also a traffic marker, a trap toward roads." },
+      { label: "Words that precede GREEN", words: ["HOUSE", "GOOSE", "LIGHT", "ROOM"], difficulty: 3, kind: "wordplay", redHerring: "HOUSE and GOOSE can suggest types of bear, but each forms a familiar compound with GREEN." },
+      { label: "Words that follow DARK", words: ["HORSE", "MATTER", "CHOCOLATE", "AGES"], difficulty: 4, kind: "wordplay", redHerring: "HORSE and MATTER may suggest solid shapes, but each forms a familiar compound after DARK." },
+    ],
+    decoys: ["HOUSE", "HORSE"],
+  },
+  {
+    id: 145,
+    groups: [
+      { label: "Garden tools", words: ["RAKE", "HOE", "TROWEL", "SHOVEL"], difficulty: 1, kind: "category", redHerring: "HOE rhymes with toe, a sound trap toward body parts." },
+      { label: "Pen types", words: ["BALLPOINT", "FOUNTAIN", "ROLLERBALL", "GEL"], difficulty: 2, kind: "category", redHerring: "GEL is also a hair product, a trap toward hair." },
+      { label: "Words that precede BLACK", words: ["MAIL", "BOARD", "BERRY", "JACK"], difficulty: 3, kind: "wordplay", redHerring: "MAIL and BOARD can suggest garden tools, but each forms a familiar compound with BLACK." },
+      { label: "Words that follow HAND", words: ["BAG", "SHAKE", "STAND", "WRITING"], difficulty: 4, kind: "wordplay", redHerring: "BAG and SHAKE may suggest pen types, but each forms a familiar compound after HAND." },
+    ],
+    decoys: ["MAIL", "BAG"],
+  },
+  {
+    id: 146,
+    groups: [
+      { label: "Wind instruments", words: ["BAGPIPES", "OCARINA", "KAZOO", "HARMONICA"], difficulty: 1, kind: "category", redHerring: "HARMONICA is also a mouth-blown instrument, a trap toward the other instruments." },
+      { label: "Things with keys", words: ["PIANO", "MAP", "LOCK", "KEYBOARD"], difficulty: 2, kind: "category", redHerring: "PIANO and KEYBOARD are instruments, which tempts a music group that is not in this puzzle." },
+      { label: "Words that precede SIDE", words: ["KICK", "ROAD", "SHOW", "SADDLE"], difficulty: 3, kind: "wordplay", redHerring: "KICK and ROAD can suggest wind instruments, but each forms a familiar compound with SIDE." },
+      { label: "Words that follow STONE", words: ["COLD", "WALL", "FRUIT", "AGE"], difficulty: 4, kind: "wordplay", redHerring: "COLD and WALL may suggest things with keys, but each forms a familiar compound after STONE." },
+    ],
+    decoys: ["KICK", "COLD"],
+  },
+  {
+    id: 147,
+    groups: [
+      { label: "Space", words: ["ROCKET", "SATELLITE", "ASTEROID", "ORBIT"], difficulty: 1, kind: "category", redHerring: "ORBIT is also an eye socket, a trap toward body parts." },
+      { label: "Things that ring", words: ["PHONE", "DOORBELL", "ALARM", "SIREN"], difficulty: 2, kind: "category", redHerring: "SIREN is also a mythical sea creature, a trap toward myth." },
+      { label: "Words that precede WATER", words: ["FALL", "MELON", "PROOF", "WORKS"], difficulty: 3, kind: "wordplay", redHerring: "FALL and MELON can suggest space, but each forms a familiar compound with WATER." },
+      { label: "Words that follow MOON", words: ["FULL", "HARVEST", "HONEY", "BLUE"], difficulty: 4, kind: "wordplay", redHerring: "FULL and HARVEST may suggest things that ring, but each forms a familiar compound after MOON." },
+    ],
+    decoys: ["FALL", "FULL"],
+  },
+  {
+    id: 148,
+    groups: [
+      { label: "Programming languages", words: ["JAVA", "PERL", "COBOL", "FORTRAN"], difficulty: 1, kind: "category", redHerring: "JAVA is also coffee, a trap toward drinks." },
+      { label: "Jewellery", words: ["BRACELET", "NECKLACE", "BROOCH", "ANKLET"], difficulty: 2, kind: "category", redHerring: "BROOCH is also a clasp for fastening, a trap toward fastenings." },
+      { label: "Words that precede SNOW", words: ["BALL", "FLAKE", "DRIFT", "PLOW"], difficulty: 3, kind: "wordplay", redHerring: "BALL and FLAKE can suggest programming languages, but each forms a familiar compound with SNOW." },
+      { label: "Words that follow GOLD", words: ["RUSH", "FISH", "LEAF", "MEDAL"], difficulty: 4, kind: "wordplay", redHerring: "RUSH and FISH may suggest jewellery, but each forms a familiar compound after GOLD." },
+    ],
+    decoys: ["BALL", "RUSH"],
+  },
+  {
+    id: 149,
+    groups: [
+      { label: "Weather", words: ["SLEET", "HAIL", "FOG", "MIST"], difficulty: 1, kind: "category", redHerring: "HAIL is also a greeting, and MIST is also a kind of cloud, so both can drift elsewhere." },
+      { label: "Coins", words: ["NICKEL", "DIME", "QUARTER", "DOUBLOON"], difficulty: 2, kind: "category", redHerring: "QUARTER is also a part of an hour, a trap toward time." },
+      { label: "Words that precede FOOT", words: ["BALL", "BRIDGE", "PRINT", "LOOSE"], difficulty: 3, kind: "wordplay", redHerring: "BALL and BRIDGE can suggest weather, but each forms a familiar compound with FOOT." },
+      { label: "Words that follow SILVER", words: ["LINING", "SCREEN", "SPOON", "BELLS"], difficulty: 4, kind: "wordplay", redHerring: "LINING and SCREEN may suggest coins, but each forms a familiar compound after SILVER." },
+    ],
+    decoys: ["BALL", "LINING"],
+  },
+  {
+    id: 150,
+    groups: [
+      { label: "Sea creatures", words: ["SQUID", "OCTOPUS", "MANTA", "STARFISH"], difficulty: 1, kind: "category", redHerring: "MANTA is also a kind of ray, which could pull you toward fish." },
+      { label: "Dances", words: ["TANGO", "WALTZ", "SALSA", "POLKA"], difficulty: 2, kind: "category", redHerring: "SALSA is also a tomato sauce, which tempts a food reading, but the group is dances." },
+      { label: "Words that precede CROSS", words: ["WORD", "WALK", "BOW", "ROADS"], difficulty: 3, kind: "wordplay", redHerring: "WORD and WALK can suggest sea creatures, but each forms a familiar compound with CROSS." },
+      { label: "Words that follow BELL", words: ["HOP", "FLOWER", "TOWER", "PEPPER"], difficulty: 4, kind: "wordplay", redHerring: "HOP and FLOWER may suggest dances, but each forms a familiar compound after BELL." },
+    ],
+    decoys: ["WORD", "HOP"],
+  },
+  {
+    id: 151,
+    groups: [
+      { label: "Nursery rhyme characters", words: ["JACK", "JILL", "HUMPTY", "BOPEEP"], difficulty: 1, kind: "category", redHerring: "JACK is also a playing card, which can pull toward card games." },
+      { label: "Words that go before POT", words: ["FLOWER", "TEA", "HOT", "CRACK"], difficulty: 2, kind: "category", redHerring: "TEA is also a drink, which can pull toward drinks." },
+      { label: "Words that precede HONEY", words: ["BEE", "MOON", "COMB", "POT"], difficulty: 3, kind: "wordplay", redHerring: "BEE and MOON can suggest nursery rhyme characters, but each forms a familiar compound with HONEY." },
+      { label: "Words that follow BREAD", words: ["CRUMB", "STICK", "WINNER", "LINE"], difficulty: 4, kind: "wordplay", redHerring: "CRUMB and STICK may suggest words that go before pot, but each forms a familiar compound after BREAD." },
+    ],
+    decoys: ["BEE", "CRUMB"],
+  },
+  {
+    id: 152,
+    groups: [
+      { label: "Sweets", words: ["TOFFEE", "FUDGE", "NOUGAT", "MARZIPAN"], difficulty: 1, kind: "category", redHerring: "FUDGE is also a word for a made-up or dodgy result, a trap for word lovers." },
+      { label: "Words that go before BEAR", words: ["TEDDY", "GUMMY", "HONEY", "SUN"], difficulty: 2, kind: "category", redHerring: "HONEY is also a food, which can pull toward the food groups." },
+      { label: "Words that precede EARTH", words: ["WORM", "QUAKE", "BOUND", "WORK"], difficulty: 3, kind: "wordplay", redHerring: "WORM and QUAKE can suggest sweets, but each forms a familiar compound with EARTH." },
+      { label: "Words that follow RAIN", words: ["BOW", "CHECK", "DROP", "FOREST"], difficulty: 4, kind: "wordplay", redHerring: "BOW and CHECK may suggest words that go before bear, but each forms a familiar compound after RAIN." },
+    ],
+    decoys: ["WORM", "BOW"],
+  },
+  {
+    id: 153,
+    groups: [
+      { label: "Things in a library", words: ["SHELF", "INDEX", "CATALOGUE", "BOOKMARK"], difficulty: 1, kind: "category", redHerring: "INDEX is also a finger, which can pull toward body parts." },
+      { label: "Fish", words: ["SARDINE", "TURBOT", "GUDGEON", "SKATE"], difficulty: 2, kind: "category", redHerring: "SKATE is also a sport on wheels, a trap toward sports." },
+      { label: "Words that precede WILD", words: ["CARD", "FIRE", "LIFE", "GOOSE"], difficulty: 3, kind: "wordplay", redHerring: "CARD and FIRE can suggest things in a library, but each forms a familiar compound with WILD." },
+      { label: "Words that follow PAPER", words: ["CLIP", "JAM", "ROUTE", "TRAIL"], difficulty: 4, kind: "wordplay", redHerring: "CLIP and JAM may suggest fish, but each forms a familiar compound after PAPER." },
+    ],
+    decoys: ["CARD", "CLIP"],
+  },
+  {
+    id: 154,
+    groups: [
+      { label: "Sea mammals", words: ["DOLPHIN", "WALRUS", "MANATEE", "NARWHAL"], difficulty: 1, kind: "category", redHerring: "WALRUS is also a large moustache, a trap toward facial hair." },
+      { label: "Dentist's tools", words: ["DRILL", "FLOSS", "SUCTION", "PROBE"], difficulty: 2, kind: "category", redHerring: "DRILL is also a practice exercise, a trap toward school." },
+      { label: "Words that precede RED", words: ["CARPET", "TAPE", "WOOD", "HANDED"], difficulty: 3, kind: "wordplay", redHerring: "CARPET and TAPE can suggest sea mammals, but each forms a familiar compound with RED." },
+      { label: "Words that follow NIGHT", words: ["OWL", "CAP", "LIGHT", "SHADE"], difficulty: 4, kind: "wordplay", redHerring: "OWL and CAP may suggest dentist's tools, but each forms a familiar compound after NIGHT." },
+    ],
+    decoys: ["CARPET", "OWL"],
+  },
+  {
+    id: 155,
+    groups: [
+      { label: "Jobs", words: ["BAKER", "PLUMBER", "SURGEON", "MASON"], difficulty: 1, kind: "category", redHerring: "MASON is also a freemason, a trap toward secret societies." },
+      { label: "Desserts", words: ["TRIFLE", "MOUSSE", "SORBET", "PUDDING"], difficulty: 2, kind: "category", redHerring: "TRIFLE is also a word for something unimportant, which can mislead you." },
+      { label: "Words that precede HIGH", words: ["HORSE", "TIDE", "WAY", "LIGHT"], difficulty: 3, kind: "wordplay", redHerring: "HORSE and TIDE can suggest jobs, but each forms a familiar compound with HIGH." },
+      { label: "Words that follow SCHOOL", words: ["BUS", "BOOK", "MATE", "YARD"], difficulty: 4, kind: "wordplay", redHerring: "BUS and BOOK may suggest desserts, but each forms a familiar compound after SCHOOL." },
+    ],
+    decoys: ["HORSE", "BUS"],
+  },
+  {
+    id: 156,
+    groups: [
+      { label: "Ways to cook eggs", words: ["POACH", "SCRAMBLE", "OMELETTE", "FRITTATA"], difficulty: 1, kind: "category", redHerring: "SCRAMBLE is also a rush, a trap toward speed." },
+      { label: "Things that can be cracked", words: ["JOKE", "CODE", "SAFE", "EGG"], difficulty: 2, kind: "category", redHerring: "EGG is also a food, which can pull toward the food groups." },
+      { label: "Words that precede SUN", words: ["RISE", "SET", "SPOT", "BURN"], difficulty: 3, kind: "wordplay", redHerring: "RISE and SET can suggest ways to cook eggs, but each forms a familiar compound with SUN." },
+      { label: "Words that follow FLOWER", words: ["BED", "POT", "CHILD", "POWER"], difficulty: 4, kind: "wordplay", redHerring: "BED and POT may suggest things that can be cracked, but each forms a familiar compound after FLOWER." },
+    ],
+    decoys: ["RISE", "BED"],
+  },
+  {
+    id: 157,
+    groups: [
+      { label: "Garden features", words: ["POND", "GAZEBO", "PATIO", "SHED"], difficulty: 1, kind: "category", redHerring: "POND is also a small lake, a trap toward lakes." },
+      { label: "Gases", words: ["NITROGEN", "HYDROGEN", "ARGON", "METHANE"], difficulty: 2, kind: "category", redHerring: "ARGON is also a name, a trap toward names." },
+      { label: "Words that precede WIND", words: ["CHILL", "FALL", "PIPE", "UP"], difficulty: 3, kind: "wordplay", redHerring: "CHILL and FALL can suggest garden features, but each forms a familiar compound with WIND." },
+      { label: "Words that follow MILL", words: ["STONE", "WHEEL", "RACE", "WORK"], difficulty: 4, kind: "wordplay", redHerring: "STONE and WHEEL may suggest gases, but each forms a familiar compound after MILL." },
+    ],
+    decoys: ["CHILL", "STONE"],
+  },
+  {
+    id: 158,
+    groups: [
+      { label: "Musical instruments", words: ["CELLO", "OBOE", "HARP", "TUBA"], difficulty: 1, kind: "category", redHerring: "HARP is also a verb meaning to keep returning to one subject, a word-play trap." },
+      { label: "Striped things", words: ["BARCODE", "PEPPERMINT", "AWNING", "PYJAMAS"], difficulty: 2, kind: "category", redHerring: "PEPPERMINT is also a herb, a trap toward herbs." },
+      { label: "Words that precede MIND", words: ["SET", "READ", "BLIND", "OVER"], difficulty: 3, kind: "wordplay", redHerring: "SET and READ can suggest musical instruments, but each forms a familiar compound with MIND." },
+      { label: "Words that follow GAME", words: ["PLAN", "SHOW", "POINT", "PLAY"], difficulty: 4, kind: "wordplay", redHerring: "PLAN and SHOW may suggest striped things, but each forms a familiar compound after GAME." },
+    ],
+    decoys: ["SET", "PLAN"],
+  },
+  {
+    id: 159,
+    groups: [
+      { label: "Parts of the eye", words: ["IRIS", "PUPIL", "LENS", "RETINA"], difficulty: 1, kind: "category", redHerring: "IRIS is also a flower, so it can be pulled toward plants." },
+      { label: "Wheeled vehicles", words: ["SKATEBOARD", "TRAM", "WHEELBARROW", "SCOOTER"], difficulty: 2, kind: "category", redHerring: "TRAM runs on rails, which might pull toward railways, but it is a wheeled vehicle here." },
+      { label: "Words that precede TIME", words: ["TABLE", "KEEPER", "LESS", "ZONE"], difficulty: 3, kind: "wordplay", redHerring: "TABLE and KEEPER can suggest parts of the eye, but each forms a familiar compound with TIME." },
+      { label: "Words that follow LINE", words: ["DANCE", "BACK", "DRIVE", "UP"], difficulty: 4, kind: "wordplay", redHerring: "DANCE and BACK may suggest wheeled vehicles, but each forms a familiar compound after LINE." },
+    ],
+    decoys: ["TABLE", "DANCE"],
+  },
+  {
+    id: 160,
+    groups: [
+      { label: "Insects", words: ["BEETLE", "MOTH", "WASP", "LADYBUG"], difficulty: 1, kind: "category", redHerring: "WASP is also a stinging creature, which can pull toward the stinging group." },
+      { label: "Desert animals", words: ["CAMEL", "GECKO", "JACKAL", "MEERKAT"], difficulty: 2, kind: "category", redHerring: "JACKAL is also slang for a person who does another's work, a word trap." },
+      { label: "Words that precede DUST", words: ["GOLD", "BOWL", "COVER", "STORM"], difficulty: 3, kind: "wordplay", redHerring: "GOLD and BOWL can suggest insects, but each forms a familiar compound with DUST." },
+      { label: "Words that follow JACKET", words: ["POTATO", "LIFE", "POCKET", "BOOK"], difficulty: 4, kind: "wordplay", redHerring: "POTATO and LIFE may suggest desert animals, but each forms a familiar compound after JACKET." },
+    ],
+    decoys: ["GOLD", "POTATO"],
+  },
+  {
+    id: 161,
+    groups: [
+      { label: "Fairy-tale things", words: ["BEANSTALK", "SLIPPER", "MIRROR", "CRUMB"], difficulty: 1, kind: "category", redHerring: "MIRROR is also a reflective glass, a trap toward light objects." },
+      { label: "Pastry types", words: ["PUFF", "FILO", "CHOUX", "SHORTCRUST"], difficulty: 2, kind: "category", redHerring: "CHOUX is a French word for cabbage, a trap toward vegetables." },
+      { label: "Words that precede FIRE", words: ["CAMP", "CROSS", "OPEN", "RAPID"], difficulty: 3, kind: "wordplay", redHerring: "CAMP and CROSS can suggest fairy-tale things, but each forms a familiar compound with FIRE." },
+      { label: "Words that follow BIRD", words: ["CAGE", "SEED", "CALL", "WATCH"], difficulty: 4, kind: "wordplay", redHerring: "CAGE and SEED may suggest pastry types, but each forms a familiar compound after BIRD." },
+    ],
+    decoys: ["CAMP", "CAGE"],
+  },
+  {
+    id: 162,
+    groups: [
+      { label: "Fairground rides", words: ["CAROUSEL", "DODGEMS", "TEACUPS", "ROLLERCOASTER"], difficulty: 1, kind: "category", redHerring: "TEACUPS are also crockery, which can pull toward the kitchen." },
+      { label: "Water sports", words: ["WATERSKI", "SNORKEL", "KITESURF", "PARASAIL"], difficulty: 2, kind: "category", redHerring: "PARASAIL is close to parasol, a spelling trap." },
+      { label: "Words that precede STAR", words: ["NORTH", "ROCK", "SHOOTING", "SUPER"], difficulty: 3, kind: "wordplay", redHerring: "NORTH and ROCK can suggest fairground rides, but each forms a familiar compound with STAR." },
+      { label: "Words that follow BACK", words: ["PACK", "YARD", "STAGE", "BONE"], difficulty: 4, kind: "wordplay", redHerring: "PACK and YARD may suggest water sports, but each forms a familiar compound after BACK." },
+    ],
+    decoys: ["NORTH", "PACK"],
+  },
+  {
+    id: 163,
+    groups: [
+      { label: "Sports", words: ["CRICKET", "BADMINTON", "JUDO", "KARATE"], difficulty: 1, kind: "category", redHerring: "CRICKET is also an insect, a trap toward insects." },
+      { label: "Famous scientists", words: ["NEWTON", "CURIE", "DARWIN", "EINSTEIN"], difficulty: 2, kind: "category", redHerring: "NEWTON is also a unit of force, which fits the units group, and DARWIN is a city in Australia." },
+      { label: "Words that precede BLUE", words: ["MOON", "GRASS", "PRINT", "BERRY"], difficulty: 3, kind: "wordplay", redHerring: "MOON and GRASS can suggest sports, but each forms a familiar compound with BLUE." },
+      { label: "Words that follow COLD", words: ["SNAP", "WAR", "CASE", "FRONT"], difficulty: 4, kind: "wordplay", redHerring: "SNAP and WAR may suggest famous scientists, but each forms a familiar compound after COLD." },
+    ],
+    decoys: ["MOON", "SNAP"],
+  },
+  {
+    id: 164,
+    groups: [
+      { label: "Shellfish", words: ["LOBSTER", "PRAWN", "MUSSEL", "SCALLOP"], difficulty: 1, kind: "category", redHerring: "SCALLOP is also a wavy sewing edge, a trap toward sewing." },
+      { label: "Cartoon cats", words: ["GARFIELD", "TOM", "FELIX", "SYLVESTER"], difficulty: 2, kind: "category", redHerring: "TOM is also a male cat, a trap toward cats in general." },
+      { label: "Words that precede GREEN", words: ["HOUSE", "GOOSE", "LIGHT", "ROOM"], difficulty: 3, kind: "wordplay", redHerring: "HOUSE and GOOSE can suggest shellfish, but each forms a familiar compound with GREEN." },
+      { label: "Words that follow DARK", words: ["HORSE", "MATTER", "CHOCOLATE", "AGES"], difficulty: 4, kind: "wordplay", redHerring: "HORSE and MATTER may suggest cartoon cats, but each forms a familiar compound after DARK." },
+    ],
+    decoys: ["HOUSE", "HORSE"],
+  },
+  {
+    id: 165,
+    groups: [
+      { label: "Mythical beasts", words: ["CENTAUR", "MINOTAUR", "CHIMERA", "HYDRA"], difficulty: 1, kind: "category", redHerring: "HYDRA is also a freshwater animal, a trap toward nature." },
+      { label: "Newspaper sections", words: ["HEADLINE", "EDITORIAL", "OBITUARY", "CLASSIFIEDS"], difficulty: 2, kind: "category", redHerring: "EDITORIAL is also an opinion piece, a trap toward writing." },
+      { label: "Words that precede BLACK", words: ["MAIL", "BOARD", "BERRY", "JACK"], difficulty: 3, kind: "wordplay", redHerring: "MAIL and BOARD can suggest mythical beasts, but each forms a familiar compound with BLACK." },
+      { label: "Words that follow HAND", words: ["BAG", "SHAKE", "STAND", "WRITING"], difficulty: 4, kind: "wordplay", redHerring: "BAG and SHAKE may suggest newspaper sections, but each forms a familiar compound after HAND." },
+    ],
+    decoys: ["MAIL", "BAG"],
+  },
+  {
+    id: 166,
+    groups: [
+      { label: "Olympic sports", words: ["DIVING", "GYMNASTICS", "WRESTLING", "DECATHLON"], difficulty: 1, kind: "category", redHerring: "DIVING is also a plunge, a trap toward water words." },
+      { label: "Shapes", words: ["CRESCENT", "SPIRAL", "ZIGZAG", "WAVE"], difficulty: 2, kind: "category", redHerring: "CRESCENT is also a moon phase, a trap toward space." },
+      { label: "Words that precede SIDE", words: ["KICK", "ROAD", "SHOW", "SADDLE"], difficulty: 3, kind: "wordplay", redHerring: "KICK and ROAD can suggest olympic sports, but each forms a familiar compound with SIDE." },
+      { label: "Words that follow STONE", words: ["COLD", "WALL", "FRUIT", "AGE"], difficulty: 4, kind: "wordplay", redHerring: "COLD and WALL may suggest shapes, but each forms a familiar compound after STONE." },
+    ],
+    decoys: ["KICK", "COLD"],
+  },
+  {
+    id: 167,
+    groups: [
+      { label: "Homes", words: ["COTTAGE", "MANSION", "VILLA", "CHALET"], difficulty: 1, kind: "category", redHerring: "CHALET is also a wooden holiday home, a trap toward holidays." },
+      { label: "Parts of a flower", words: ["PETAL", "STEM", "SEPAL", "PISTIL"], difficulty: 2, kind: "category", redHerring: "STEM is also a verb meaning to stop a flow, but here it is a flower part." },
+      { label: "Words that precede WATER", words: ["FALL", "MELON", "PROOF", "WORKS"], difficulty: 3, kind: "wordplay", redHerring: "FALL and MELON can suggest homes, but each forms a familiar compound with WATER." },
+      { label: "Words that follow MOON", words: ["FULL", "HARVEST", "HONEY", "BLUE"], difficulty: 4, kind: "wordplay", redHerring: "FULL and HARVEST may suggest parts of a flower, but each forms a familiar compound after MOON." },
+    ],
+    decoys: ["FALL", "FULL"],
+  },
+  {
+    id: 168,
+    groups: [
+      { label: "Basic shapes", words: ["CIRCLE", "SQUARE", "OVAL", "STAR"], difficulty: 1, kind: "category", redHerring: "SQUARE is also a polygon, so it can fit the polygons group as well." },
+      { label: "Dairy products", words: ["YOGURT", "BUTTER", "CREAM", "WHEY"], difficulty: 2, kind: "category", redHerring: "BUTTER is also a verb for flattering someone, a word trap." },
+      { label: "Words that precede SNOW", words: ["BALL", "FLAKE", "DRIFT", "PLOW"], difficulty: 3, kind: "wordplay", redHerring: "BALL and FLAKE can suggest basic shapes, but each forms a familiar compound with SNOW." },
+      { label: "Words that follow GOLD", words: ["RUSH", "FISH", "LEAF", "MEDAL"], difficulty: 4, kind: "wordplay", redHerring: "RUSH and FISH may suggest dairy products, but each forms a familiar compound after GOLD." },
+    ],
+    decoys: ["BALL", "RUSH"],
+  },
+  {
+    id: 169,
+    groups: [
+      { label: "Languages", words: ["HINDI", "SWAHILI", "TAMIL", "FRENCH"], difficulty: 1, kind: "category", redHerring: "FRENCH is also a kind of fries or a style of bread, which pulls toward food." },
+      { label: "Fasteners", words: ["RIVET", "SCREW", "NAIL", "BOLT"], difficulty: 2, kind: "category", redHerring: "NAIL is also a body part, a trap toward body words." },
+      { label: "Words that precede FOOT", words: ["BALL", "BRIDGE", "PRINT", "LOOSE"], difficulty: 3, kind: "wordplay", redHerring: "BALL and BRIDGE can suggest languages, but each forms a familiar compound with FOOT." },
+      { label: "Words that follow SILVER", words: ["LINING", "SCREEN", "SPOON", "BELLS"], difficulty: 4, kind: "wordplay", redHerring: "LINING and SCREEN may suggest fasteners, but each forms a familiar compound after SILVER." },
+    ],
+    decoys: ["BALL", "LINING"],
+  },
+  {
+    id: 170,
+    groups: [
+      { label: "Architectural features", words: ["ARCH", "DOME", "BUTTRESS", "COLUMN"], difficulty: 1, kind: "category", redHerring: "COLUMN is also a newspaper feature, a trap toward writing." },
+      { label: "Fictional spies", words: ["BOND", "BOURNE", "SMILEY", "CONDOR"], difficulty: 2, kind: "category", redHerring: "BOND is also a financial certificate, a trap toward money." },
+      { label: "Words that precede CROSS", words: ["WORD", "WALK", "BOW", "ROADS"], difficulty: 3, kind: "wordplay", redHerring: "WORD and WALK can suggest architectural features, but each forms a familiar compound with CROSS." },
+      { label: "Words that follow BELL", words: ["HOP", "FLOWER", "TOWER", "PEPPER"], difficulty: 4, kind: "wordplay", redHerring: "HOP and FLOWER may suggest fictional spies, but each forms a familiar compound after BELL." },
+    ],
+    decoys: ["WORD", "HOP"],
+  },
+  {
+    id: 171,
+    groups: [
+      { label: "Shades of blue", words: ["NAVY", "AZURE", "COBALT", "TEAL"], difficulty: 1, kind: "category", redHerring: "TEAL is also a small duck, which can pull toward birds." },
+      { label: "Cat breeds", words: ["SIAMESE", "PERSIAN", "MANX", "BENGAL"], difficulty: 2, kind: "category", redHerring: "BENGAL is also a tiger, which could pull you toward big wild animals rather than cats." },
+      { label: "Words that precede HONEY", words: ["BEE", "MOON", "COMB", "POT"], difficulty: 3, kind: "wordplay", redHerring: "BEE and MOON can suggest shades of blue, but each forms a familiar compound with HONEY." },
+      { label: "Words that follow BREAD", words: ["CRUMB", "STICK", "WINNER", "LINE"], difficulty: 4, kind: "wordplay", redHerring: "CRUMB and STICK may suggest cat breeds, but each forms a familiar compound after BREAD." },
+    ],
+    decoys: ["BEE", "CRUMB"],
+  },
+  {
+    id: 172,
+    groups: [
+      { label: "Hair accessories", words: ["SCRUNCHIE", "HAIRPIN", "TIARA", "HEADBAND"], difficulty: 1, kind: "category", redHerring: "TIARA is also a piece of jewellery, which pulls toward the jewellery group." },
+      { label: "Things at sea", words: ["BUOY", "ANCHOR", "COMPASS", "TIDE"], difficulty: 2, kind: "category", redHerring: "COMPASS is also a range of subjects, which can pull toward school words." },
+      { label: "Words that precede EARTH", words: ["WORM", "QUAKE", "BOUND", "WORK"], difficulty: 3, kind: "wordplay", redHerring: "WORM and QUAKE can suggest hair accessories, but each forms a familiar compound with EARTH." },
+      { label: "Words that follow RAIN", words: ["BOW", "CHECK", "DROP", "FOREST"], difficulty: 4, kind: "wordplay", redHerring: "BOW and CHECK may suggest things at sea, but each forms a familiar compound after RAIN." },
+    ],
+    decoys: ["WORM", "BOW"],
+  },
+  {
+    id: 173,
+    groups: [
+      { label: "Fish", words: ["HERRING", "PIKE", "CARP", "MARLIN"], difficulty: 1, kind: "category", redHerring: "PIKE is also a medieval weapon, a trap toward weapons." },
+      { label: "Seeds", words: ["SESAME", "POPPY", "CHIA", "FLAX"], difficulty: 2, kind: "category", redHerring: "POPPY is also a flower, a trap toward flowers." },
+      { label: "Words that precede WILD", words: ["CARD", "FIRE", "LIFE", "GOOSE"], difficulty: 3, kind: "wordplay", redHerring: "CARD and FIRE can suggest fish, but each forms a familiar compound with WILD." },
+      { label: "Words that follow PAPER", words: ["CLIP", "JAM", "ROUTE", "TRAIL"], difficulty: 4, kind: "wordplay", redHerring: "CLIP and JAM may suggest seeds, but each forms a familiar compound after PAPER." },
+    ],
+    decoys: ["CARD", "CLIP"],
+  },
+  {
+    id: 174,
+    groups: [
+      { label: "Words that go before SHOW", words: ["ROAD", "TALENT", "GAME", "TRADE"], difficulty: 1, kind: "category", redHerring: "ROAD is also a path, a trap toward travel." },
+      { label: "Sculptors", words: ["RODIN", "BERNINI", "DONATELLO", "CANOVA"], difficulty: 2, kind: "category", redHerring: "CANOVA was Italian, which could pull toward the Italian painters." },
+      { label: "Words that precede RED", words: ["CARPET", "TAPE", "WOOD", "HANDED"], difficulty: 3, kind: "wordplay", redHerring: "CARPET and TAPE can suggest words that go before show, but each forms a familiar compound with RED." },
+      { label: "Words that follow NIGHT", words: ["OWL", "CAP", "LIGHT", "SHADE"], difficulty: 4, kind: "wordplay", redHerring: "OWL and CAP may suggest sculptors, but each forms a familiar compound after NIGHT." },
+    ],
+    decoys: ["CARPET", "OWL"],
+  },
+  {
+    id: 175,
+    groups: [
+      { label: "Browns", words: ["TAN", "SEPIA", "UMBER", "CARAMEL"], difficulty: 1, kind: "category", redHerring: "CARAMEL is also a sweet, a trap toward sweets." },
+      { label: "Shakespeare plays", words: ["HAMLET", "OTHELLO", "MACBETH", "TEMPEST"], difficulty: 2, kind: "category", redHerring: "HAMLET is also a small village and a cigar, which fit no literature group here." },
+      { label: "Words that precede HIGH", words: ["HORSE", "TIDE", "WAY", "LIGHT"], difficulty: 3, kind: "wordplay", redHerring: "HORSE and TIDE can suggest browns, but each forms a familiar compound with HIGH." },
+      { label: "Words that follow SCHOOL", words: ["BUS", "BOOK", "MATE", "YARD"], difficulty: 4, kind: "wordplay", redHerring: "BUS and BOOK may suggest shakespeare plays, but each forms a familiar compound after SCHOOL." },
+    ],
+    decoys: ["HORSE", "BUS"],
+  },
+  {
+    id: 176,
+    groups: [
+      { label: "Chess terms", words: ["GAMBIT", "CASTLE", "CHECK", "MATE"], difficulty: 1, kind: "category", redHerring: "CASTLE is also a building, a trap toward buildings." },
+      { label: "Casino games", words: ["ROULETTE", "BLACKJACK", "KENO", "BACCARAT"], difficulty: 2, kind: "category", redHerring: "BLACKJACK is also a pirate flag, which can pull toward a pirate theme." },
+      { label: "Words that precede SUN", words: ["RISE", "SET", "SPOT", "BURN"], difficulty: 3, kind: "wordplay", redHerring: "RISE and SET can suggest chess terms, but each forms a familiar compound with SUN." },
+      { label: "Words that follow FLOWER", words: ["BED", "POT", "CHILD", "POWER"], difficulty: 4, kind: "wordplay", redHerring: "BED and POT may suggest casino games, but each forms a familiar compound after FLOWER." },
+    ],
+    decoys: ["RISE", "BED"],
+  },
+  {
+    id: 177,
+    groups: [
+      { label: "Toys", words: ["KITE", "MARBLES", "TOP", "DOLL"], difficulty: 1, kind: "category", redHerring: "TOP could mean the top of a list, but it also describes a spinning toy." },
+      { label: "Breakfast cereals", words: ["CORNFLAKES", "MUESLI", "PORRIDGE", "GRANOLA"], difficulty: 2, kind: "category", redHerring: "CORNFLAKES contains corn, a trap toward crops." },
+      { label: "Words that precede WIND", words: ["CHILL", "FALL", "PIPE", "UP"], difficulty: 3, kind: "wordplay", redHerring: "CHILL and FALL can suggest toys, but each forms a familiar compound with WIND." },
+      { label: "Words that follow MILL", words: ["STONE", "WHEEL", "RACE", "WORK"], difficulty: 4, kind: "wordplay", redHerring: "STONE and WHEEL may suggest breakfast cereals, but each forms a familiar compound after MILL." },
+    ],
+    decoys: ["CHILL", "STONE"],
+  },
+  {
+    id: 178,
+    groups: [
+      { label: "Gemstones", words: ["RUBY", "OPAL", "JADE", "ONYX"], difficulty: 1, kind: "category", redHerring: "JADE is also a shade of green, so it can pull toward colours." },
+      { label: "Musicals", words: ["CATS", "EVITA", "GREASE", "ANNIE"], difficulty: 2, kind: "category", redHerring: "ANNIE is also a common name, a trap toward names." },
+      { label: "Words that precede MIND", words: ["SET", "READ", "BLIND", "OVER"], difficulty: 3, kind: "wordplay", redHerring: "SET and READ can suggest gemstones, but each forms a familiar compound with MIND." },
+      { label: "Words that follow GAME", words: ["PLAN", "SHOW", "POINT", "PLAY"], difficulty: 4, kind: "wordplay", redHerring: "PLAN and SHOW may suggest musicals, but each forms a familiar compound after GAME." },
+    ],
+    decoys: ["SET", "PLAN"],
+  },
+  {
+    id: 179,
+    groups: [
+      { label: "Inventors", words: ["EDISON", "TESLA", "TURING", "BELL"], difficulty: 1, kind: "category", redHerring: "BELL is also a sound, which pulls toward the ringing group." },
+      { label: "Metals", words: ["IRON", "TIN", "LEAD", "ZINC"], difficulty: 2, kind: "category", redHerring: "LEAD is also a verb meaning to guide, and TIN is a container, so both can mislead." },
+      { label: "Words that precede TIME", words: ["TABLE", "KEEPER", "LESS", "ZONE"], difficulty: 3, kind: "wordplay", redHerring: "TABLE and KEEPER can suggest inventors, but each forms a familiar compound with TIME." },
+      { label: "Words that follow LINE", words: ["DANCE", "BACK", "DRIVE", "UP"], difficulty: 4, kind: "wordplay", redHerring: "DANCE and BACK may suggest metals, but each forms a familiar compound after LINE." },
+    ],
+    decoys: ["TABLE", "DANCE"],
+  },
+  {
+    id: 180,
+    groups: [
+      { label: "Cartoon dogs", words: ["SNOOPY", "PLUTO", "GOOFY", "SCOOBY"], difficulty: 1, kind: "category", redHerring: "GOOFY is also an everyday adjective, which can pull toward words." },
+      { label: "Ancient wonders", words: ["PYRAMID", "COLOSSUS", "LIGHTHOUSE", "MAUSOLEUM"], difficulty: 2, kind: "category", redHerring: "PYRAMID is also a shape, but the link here is the ancient wonders." },
+      { label: "Words that precede DUST", words: ["GOLD", "BOWL", "COVER", "STORM"], difficulty: 3, kind: "wordplay", redHerring: "GOLD and BOWL can suggest cartoon dogs, but each forms a familiar compound with DUST." },
+      { label: "Words that follow JACKET", words: ["POTATO", "LIFE", "POCKET", "BOOK"], difficulty: 4, kind: "wordplay", redHerring: "POTATO and LIFE may suggest ancient wonders, but each forms a familiar compound after JACKET." },
+    ],
+    decoys: ["GOLD", "POTATO"],
   },
 ];

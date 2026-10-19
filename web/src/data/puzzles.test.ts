@@ -17,9 +17,9 @@ function wordsOf(puzzle: Puzzle): string[] {
 }
 
 describe("content batch 1", () => {
-  it("has exactly 120 puzzles, numbered 1 to 120", () => {
-    expect(puzzles).toHaveLength(120);
-    expect(puzzles.map((p) => p.id)).toEqual(Array.from({ length: 120 }, (_, i) => i + 1));
+  it("has exactly 180 puzzles, numbered 1 to 180", () => {
+    expect(puzzles).toHaveLength(180);
+    expect(puzzles.map((p) => p.id)).toEqual(Array.from({ length: 180 }, (_, i) => i + 1));
   });
 
   it("loads the offensive blocklist", () => {
