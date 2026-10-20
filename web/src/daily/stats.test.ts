@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { currentStreak, EMPTY_STATS, leaderboardScore, recordResult } from "./stats";
+import { currentStreak, EMPTY_STATS, leaderboardScore, loadStats, recordResult, saveStats } from "./stats";
 
 describe("recordResult", () => {
   it("counts a win and its mistakes", () => {
@@ -44,6 +44,19 @@ describe("recordResult", () => {
   it("counts a date only once", () => {
     const once = recordResult(EMPTY_STATS, "2026-10-16", true, 0);
     expect(recordResult(once, "2026-10-16", true, 0)).toBe(once);
+  });
+
+  it("keeps saved history and upgrades the previous four-bucket format", () => {
+    localStorage.setItem("fourfold-stats", JSON.stringify({
+      ...EMPTY_STATS,
+      played: 2,
+      won: 2,
+      mistakes: [1, 0, 1, 0],
+    }));
+    expect(loadStats()).toMatchObject({ played: 2, won: 2, mistakes: [1, 0, 1, 0, 0] });
+    const updated = recordResult(loadStats(), "2026-10-16", true, 2);
+    saveStats(updated);
+    expect(loadStats()).toEqual(updated);
   });
 });
 
