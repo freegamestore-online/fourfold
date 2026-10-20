@@ -19,7 +19,7 @@ function scorePosts(): unknown[] {
 async function renderDaily(date: string, today: string, onArchive: () => void) {
   let view!: ReturnType<typeof render>;
   await act(async () => {
-    view = render(<DailyScreen date={date} today={today} onArchive={onArchive} />);
+    view = render(<DailyScreen date={date} today={today} onArchive={onArchive} onStats={() => {}} />);
     // The SDK loads leaderboard scores on mount through two async fetches.
     await new Promise((resolve) => setTimeout(resolve, 0));
   });

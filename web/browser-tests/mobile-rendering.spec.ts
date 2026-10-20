@@ -71,6 +71,10 @@ for (const colorScheme of ["light", "dark"] as const) {
     await page.screenshot({ path: resolve(screenshotDir, `${colorScheme}-daily.png`) });
     await expectNoHorizontalOverflow(page);
 
+    await page.getByRole("button", { name: "Stats", exact: true }).click();
+    await expect(page.getByRole("heading", { name: "Your stats" })).toBeVisible();
+    await page.getByRole("button", { name: "Back to today" }).click();
+
     await page.getByRole("button", { name: "Archive" }).click();
     await expect(page.getByRole("heading", { name: "Archive" })).toBeVisible();
     await expect(page.getByRole("button", { name: "Play" }).first()).toBeVisible();
@@ -99,6 +103,21 @@ for (const colorScheme of ["light", "dark"] as const) {
     const shareButton = page.getByRole("button", { name: "Share" });
     await expect(shareButton).toHaveText("Share");
     await expect(page.locator(".stats-line")).toContainText("Played 1");
+    await expect(page.locator(".result-mistakes")).toBeVisible();
+    await page.getByRole("button", { name: "View stats" }).click();
+    await expect(page.getByRole("heading", { name: "Your stats" })).toBeVisible();
+    await expect(page.getByText("Games played")).toBeVisible();
+    await expect(page.getByText("Win rate")).toBeVisible();
+    await expect(page.getByRole("img", { name: /Mistakes distribution/ })).toBeVisible();
+    await expect(page.getByText("Current streak")).toBeVisible();
+    await page.screenshot({ path: resolve(screenshotDir, `${colorScheme}-stats.png`) });
+    await expectNoHorizontalOverflow(page);
+    await page.reload();
+    await page.getByRole("button", { name: "Stats", exact: true }).click();
+    await expect(page.getByRole("heading", { name: "Your stats" })).toBeVisible();
+    await expect(page.getByText("Games played")).toBeVisible();
+    await page.getByRole("button", { name: "Back to today" }).click();
+    await expect(page.getByRole("heading", { name: "Solved!" })).toBeVisible();
     await shareButton.click();
     await expect(page.getByRole("button", { name: "Copied" })).toBeVisible();
     const sharedText = await page.evaluate(() => window.__sharedText);

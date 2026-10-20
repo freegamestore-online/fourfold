@@ -9,7 +9,7 @@ import { dailyNumber, puzzleForDate } from "./date";
 import { toPuzzleDef } from "./adapt";
 import { seededRandom } from "./random";
 import { type DayResult, loadProgress, loadResult, type Progress, saveProgress, saveResult } from "./storage";
-import { type Stats, leaderboardScore, loadStats, recordResult, saveStats } from "./stats";
+import { currentStreak, type Stats, leaderboardScore, loadStats, recordResult, saveStats } from "./stats";
 import { gridRows, shareText } from "./share";
 
 interface DailyScreenProps {
@@ -17,13 +17,16 @@ interface DailyScreenProps {
   date: string;
   today: string;
   onArchive: () => void;
+  onStats: () => void;
 }
+
+const mistakeLabels = ["0", "1", "2", "3", "4"] as const;
 
 /**
  * One day's puzzle. Today counts toward stats and the leaderboard. A past day from the
  * archive is saved and can be replayed, but it changes neither.
  */
-export function DailyScreen({ date, today, onArchive }: DailyScreenProps) {
+export function DailyScreen({ date, today, onArchive, onStats }: DailyScreenProps) {
   const isToday = date === today;
   const puzzle = toPuzzleDef(puzzleForDate(date));
   const number = dailyNumber(date);
@@ -82,6 +85,7 @@ export function DailyScreen({ date, today, onArchive }: DailyScreenProps) {
           number={number}
           stats={isToday ? stats : null}
           onArchive={onArchive}
+          onStats={onStats}
         />
       )}
     </div>
@@ -94,9 +98,10 @@ interface ResultCardProps {
   number: number;
   stats: Stats | null;
   onArchive: () => void;
+  onStats: () => void;
 }
 
-function ResultCard({ result, puzzle, number, stats, onArchive }: ResultCardProps) {
+function ResultCard({ result, puzzle, number, stats, onArchive, onStats }: ResultCardProps) {
   const [message, setMessage] = useState<string | null>(null);
   const isMounted = useRef(true);
   useEffect(() => {
@@ -153,10 +158,19 @@ function ResultCard({ result, puzzle, number, stats, onArchive }: ResultCardProp
         Built for freegamestore.online
       </a>
       {stats && (
-        <p className="stats-line">
-          Played {stats.played} · Win {stats.played === 0 ? 0 : Math.round((stats.won / stats.played) * 100)}% · Streak{" "}
-          {stats.streak} · Best {stats.maxStreak}
-        </p>
+        <>
+          <p className="stats-line">
+            Played {stats.played} · Win {stats.played === 0 ? 0 : Math.round((stats.won / stats.played) * 100)}% · Streak{" "}
+            {currentStreak(stats, result.date)} · Best {stats.maxStreak}
+          </p>
+          <div className="result-mistakes" role="img" aria-label={`Mistakes distribution: ${stats.mistakes.map((count, index) => `${index} mistakes ${count} games`).join(", ")}`}>
+            {mistakeLabels.map((label, index) => {
+              const count = stats.mistakes[index] ?? 0;
+              return <span key={label} title={`${label} mistakes: ${count}`} style={{ height: `${(count / Math.max(1, ...stats.mistakes)) * 28}px` }} />;
+            })}
+          </div>
+          <GameButton variant="ghost" size="sm" onClick={onStats}>View stats</GameButton>
+        </>
       )}
     </section>
   );
