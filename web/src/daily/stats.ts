@@ -11,7 +11,7 @@ export interface Stats {
   lastPlayed: string | null;
   /** The last date won, which decides whether a new win extends the streak. */
   lastWon: string | null;
-  /** Wins by mistakes used: index 0 is solved with no mistakes, index 3 with three. */
+  /** Games by mistakes used: index 0 is clean, index 4 is a loss. */
   mistakes: number[];
 }
 
@@ -22,7 +22,7 @@ export const EMPTY_STATS: Stats = {
   maxStreak: 0,
   lastPlayed: null,
   lastWon: null,
-  mistakes: [0, 0, 0, 0],
+  mistakes: [0, 0, 0, 0, 0],
 };
 
 function isCount(value: unknown): value is number {
@@ -41,9 +41,11 @@ export function loadStats(): Stats {
     (s.lastPlayed === null || typeof s.lastPlayed === "string") &&
     (s.lastWon === null || typeof s.lastWon === "string") &&
     Array.isArray(s.mistakes) &&
-    s.mistakes.length === EMPTY_STATS.mistakes.length &&
+    (s.mistakes.length === 4 || s.mistakes.length === EMPTY_STATS.mistakes.length) &&
     s.mistakes.every(isCount);
-  return valid ? (s as Stats) : EMPTY_STATS;
+  return valid
+    ? ({ ...s, mistakes: s.mistakes!.length === 4 ? [...s.mistakes!, 0] : s.mistakes } as Stats)
+    : EMPTY_STATS;
 }
 
 export function saveStats(stats: Stats): void {
@@ -57,9 +59,9 @@ export function saveStats(stats: Stats): void {
 export function recordResult(stats: Stats, date: string, won: boolean, mistakes: number): Stats {
   if (stats.lastPlayed === date) return stats;
   const played = stats.played + 1;
-  if (!won) return { ...stats, played, streak: 0, lastPlayed: date };
-  const streak = stats.lastWon === previousUtcDate(date) ? stats.streak + 1 : 1;
   const distribution = stats.mistakes.map((count, index) => (index === mistakes ? count + 1 : count));
+  if (!won) return { ...stats, played, streak: 0, lastPlayed: date, mistakes: distribution };
+  const streak = stats.lastWon === previousUtcDate(date) ? stats.streak + 1 : 1;
   return {
     played,
     won: stats.won + 1,
@@ -69,6 +71,12 @@ export function recordResult(stats: Stats, date: string, won: boolean, mistakes:
     lastWon: date,
     mistakes: distribution,
   };
+}
+
+/** A streak remains current through today if yesterday was the last win. */
+export function currentStreak(stats: Stats, today: string): number {
+  if (stats.lastPlayed === today && stats.streak === 0) return 0;
+  return stats.lastWon === today || stats.lastWon === previousUtcDate(today) ? stats.streak : 0;
 }
 
 /** Leaderboard score for a solve. Higher is better: fewer mistakes and less time both help. */
