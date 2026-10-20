@@ -66,12 +66,19 @@ export function validatePuzzle(puzzle: PuzzleDef): void {
     throw new Error(`Puzzle needs ${GROUP_COUNT} groups, got ${puzzle.groups.length}`);
   }
   const seen = new Set<string>();
+  const labels = new Set<string>();
   for (const group of puzzle.groups) {
+    if (!group.label.trim()) throw new Error("Group labels must not be empty");
+    if (labels.has(group.label)) throw new Error(`Group label "${group.label}" is used more than once`);
+    labels.add(group.label);
     if (group.words.length !== GROUP_SIZE) {
       throw new Error(`Group "${group.label}" needs ${GROUP_SIZE} words, got ${group.words.length}`);
     }
+    const withinGroup = new Set<string>();
     for (const word of group.words) {
+      if (withinGroup.has(word)) throw new Error(`Word "${word}" appears more than once in group "${group.label}"`);
       if (seen.has(word)) throw new Error(`Word "${word}" appears in more than one group`);
+      withinGroup.add(word);
       seen.add(word);
     }
   }
@@ -128,10 +135,7 @@ export function submit(state: GameState): SubmitOutcome {
   if (state.selected.length !== GROUP_SIZE) return { state, result: "incomplete" };
 
   const guess = new Set(state.selected);
-  const match = state.groups.find(
-    (group) =>
-      !isSolved(state, group) && group.words.every((word) => guess.has(word)),
-  );
+  const match = unsolvedGroups(state).find((group) => group.words.every((word) => guess.has(word)));
 
   if (match) {
     const solvedGroup: SolvedGroup = {
@@ -164,11 +168,13 @@ function isSolved(state: GameState, group: GroupDef): boolean {
   return state.solved.some((solvedGroup) => solvedGroup.label === group.label);
 }
 
+function unsolvedGroups(state: GameState): readonly GroupDef[] {
+  return state.groups.filter((group) => !isSolved(state, group));
+}
+
 function isOneAway(state: GameState): boolean {
-  return state.groups.some(
-    (group) =>
-      !isSolved(state, group) &&
-      group.words.filter((word) => state.selected.includes(word)).length === GROUP_SIZE - 1,
+  return unsolvedGroups(state).some(
+    (group) => group.words.filter((word) => state.selected.includes(word)).length === GROUP_SIZE - 1,
   );
 }
 

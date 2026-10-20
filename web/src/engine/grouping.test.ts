@@ -62,6 +62,20 @@ describe("createGame", () => {
     expect(() => validatePuzzle(bad)).toThrow(/more than one group/);
   });
 
+  it("rejects a word repeated inside one group", () => {
+    const bad: PuzzleDef = {
+      groups: [{ ...PUZZLE.groups[0]!, words: ["BAGEL", "BAGEL", "MUFFIN", "SCONE"] }, ...PUZZLE.groups.slice(1)],
+    };
+    expect(() => validatePuzzle(bad)).toThrow(/more than once/);
+  });
+
+  it("rejects duplicate group labels", () => {
+    const bad: PuzzleDef = {
+      groups: [PUZZLE.groups[0]!, { ...PUZZLE.groups[1]!, label: PUZZLE.groups[0]!.label }, ...PUZZLE.groups.slice(2)],
+    };
+    expect(() => validatePuzzle(bad)).toThrow(/label.*used more than once/);
+  });
+
   it("rejects a puzzle without four groups", () => {
     expect(() => validatePuzzle({ groups: PUZZLE.groups.slice(0, 3) })).toThrow(/needs 4 groups/);
   });
