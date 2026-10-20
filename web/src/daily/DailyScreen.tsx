@@ -10,7 +10,7 @@ import { toPuzzleDef } from "./adapt";
 import { seededRandom } from "./random";
 import { type DayResult, loadProgress, loadResult, type Progress, saveProgress, saveResult } from "./storage";
 import { type Stats, leaderboardScore, loadStats, recordResult, saveStats } from "./stats";
-import { shareText } from "./share";
+import { gridRows, shareText } from "./share";
 
 interface DailyScreenProps {
   /** The day being played: today, or a past day from the archive. */
@@ -112,6 +112,7 @@ function ResultCard({ result, puzzle, number, stats, onArchive }: ResultCardProp
     mistakes: result.mistakes,
     seconds: result.seconds,
     history,
+    url: window.location.href,
   });
 
   async function share() {
@@ -139,7 +140,7 @@ function ResultCard({ result, puzzle, number, stats, onArchive }: ResultCardProp
         #{number} · {formatDuration(result.seconds * 1000)} · {result.mistakes}{" "}
         {result.mistakes === 1 ? "mistake" : "mistakes"}
       </p>
-      <pre className="share-grid">{text.split("\n").slice(1).join("\n") || "No guesses"}</pre>
+      <pre className="share-grid">{gridRows(history).join("\n") || "No guesses"}</pre>
       <div className="result-actions">
         <GameButton size="md" onClick={() => void share()}>
           {message ?? "Share"}

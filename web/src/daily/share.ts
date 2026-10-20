@@ -20,11 +20,12 @@ export interface ShareInput {
   mistakes: number;
   seconds: number;
   history: readonly GuessRecord[];
+  url: string;
 }
 
-export function shareText({ number, won, mistakes, seconds, history }: ShareInput): string {
+export function shareText({ number, won, mistakes, seconds, history, url }: ShareInput): string {
   const headline = won
     ? `Fourfold #${number} ${mistakes} ${mistakes === 1 ? "mistake" : "mistakes"} ${formatDuration(seconds * 1000)}`
     : `Fourfold #${number} out of mistakes`;
-  return [headline, ...gridRows(history)].join("\n");
+  return [headline, ...gridRows(history), url].join("\n");
 }

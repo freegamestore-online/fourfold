@@ -150,6 +150,38 @@ describe("DailyScreen", () => {
     expect(await screen.findByText("Couldn't copy — try long-pressing the text")).toBeInTheDocument();
   });
 
+  it("uses the Web Share API with the spoiler-free result and link", async () => {
+    const nativeShare = vi.fn().mockResolvedValue(undefined);
+    Object.defineProperty(navigator, "share", { configurable: true, value: nativeShare });
+    Object.defineProperty(navigator, "clipboard", {
+      configurable: true,
+      value: { writeText: vi.fn() },
+    });
+    saveResult({ date: TODAY, won: true, mistakes: 1, seconds: 95, guesses: [] });
+    await renderDaily(TODAY, TODAY, () => {});
+
+    await click(within(screen.getByRole("region", { name: "Result" })).getByRole("button", { name: "Share" }));
+
+    expect(nativeShare).toHaveBeenCalledWith({
+      text: expect.stringContaining("Fourfold #1 1 mistake 1:35"),
+    });
+    expect(nativeShare.mock.calls[0]?.[0].text).toContain(window.location.href);
+    expect(navigator.clipboard.writeText).not.toHaveBeenCalled();
+  });
+
+  it("falls back to clipboard when native sharing is unavailable", async () => {
+    const writeText = vi.fn().mockResolvedValue(undefined);
+    Object.defineProperty(navigator, "share", { configurable: true, value: undefined });
+    Object.defineProperty(navigator, "clipboard", { configurable: true, value: { writeText } });
+    saveResult({ date: TODAY, won: true, mistakes: 0, seconds: 40, guesses: [] });
+    await renderDaily(TODAY, TODAY, () => {});
+
+    await click(within(screen.getByRole("region", { name: "Result" })).getByRole("button", { name: "Share" }));
+
+    expect(writeText).toHaveBeenCalledWith(expect.stringContaining(window.location.href));
+    expect(await screen.findByRole("button", { name: "Copied" })).toBeInTheDocument();
+  });
+
   it("does not update share state when a clipboard write resolves after unmount", async () => {
     let resolveWrite!: () => void;
     const writeText = vi.fn(() => new Promise<void>((resolve) => { resolveWrite = resolve; }));

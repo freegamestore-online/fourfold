@@ -31,9 +31,10 @@ for (const colorScheme of ["light", "dark"] as const) {
       }
       window.Date = FixedDate;
       Object.defineProperty(navigator, "share", { configurable: true, value: undefined });
+      Object.defineProperty(window, "__sharedText", { configurable: true, writable: true, value: "" });
       Object.defineProperty(navigator, "clipboard", {
         configurable: true,
-        value: { writeText: async () => {} },
+        value: { writeText: async (text: string) => { window.__sharedText = text; } },
       });
     });
     await page.route("https://auth.freegamestore.online/**", (route) =>
@@ -100,6 +101,13 @@ for (const colorScheme of ["light", "dark"] as const) {
     await expect(page.locator(".stats-line")).toContainText("Played 1");
     await shareButton.click();
     await expect(page.getByRole("button", { name: "Copied" })).toBeVisible();
+    const sharedText = await page.evaluate(() => window.__sharedText);
+    expect(sharedText).toContain("Fourfold #3");
+    expect(sharedText).toContain(page.url());
+    expect(sharedText).toContain("🟨🟨🟨🟨");
+    for (const group of puzzle.groups) {
+      for (const word of group.words) expect(sharedText).not.toContain(word);
+    }
     await page.mouse.move(0, 0);
     await page.screenshot({ path: resolve(screenshotDir, `${colorScheme}-result.png`) });
     await expectNoHorizontalOverflow(page);
@@ -139,6 +147,12 @@ for (const colorScheme of ["light", "dark"] as const) {
     await expect(page.getByRole("heading", { name: "Out of mistakes" })).toBeVisible();
     await context.close();
   });
+}
+
+declare global {
+  interface Window {
+    __sharedText: string;
+  }
 }
 
 async function expectNoHorizontalOverflow(page: import("playwright/test").Page) {
